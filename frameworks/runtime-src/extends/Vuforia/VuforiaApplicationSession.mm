@@ -17,7 +17,8 @@ Copyright (c) 2015-2016 PTC Inc. All Rights Reserved.
 #import <Vuforia/UpdateCallback.h>
 
 #import <UIKit/UIKit.h>
-
+#import "CCEAGLView-ios.h"
+#include "cocos2d.h"
 #define DEBUG_SAMPLE_APP 1
 
 namespace {
@@ -262,15 +263,12 @@ namespace {
 
 - (CGSize)getCurrentARViewBoundsSize
 {
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    CGSize viewSize = screenBounds.size;
+    CCEAGLView *glview = (CCEAGLView*)cocos2d::Director::getInstance()->getOpenGLView()->getEAGLView();
     
-    // If this device has a retina display, scale the view bounds
-    // for the AR (OpenGL) view
-    if (YES == self.isRetinaDisplay) {
-        viewSize.width *= [UIScreen mainScreen].nativeScale;
-        viewSize.height *= [UIScreen mainScreen].nativeScale;
-    }
+    CGSize viewSize;
+    viewSize.width = [glview getWidth];
+    viewSize.height = [glview getHeight];
+    
     return viewSize;
 }
 

@@ -32,21 +32,13 @@ void ARDrawer::draw()
 
 void ARDrawer::customProject()
 {
-    int x = [[[VuforiaController getVuforiaController] vapp] viewport].posX;
-    int y = [[[VuforiaController getVuforiaController] vapp] viewport].posY;
-    int sizeX = [[[VuforiaController getVuforiaController] vapp] viewport].sizeX;
-    int sizeY = [[[VuforiaController getVuforiaController] vapp] viewport].sizeY;
     cocos2d::Mat4 projectionMatrix = getCustomProjectMat4();
     auto director = cocos2d::Director::getInstance();
-    director->getOpenGLView()->setViewPortInPoints(x, y, sizeX, sizeY);
-    //director->getOpenGLView()->setDesignResolutionSize(sizeX - x, sizeY - y, ResolutionPolicy::SHOW_ALL);
-    
     director->loadIdentityMatrix(cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
     director->multiplyMatrix(cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, projectionMatrix);
-
     cocos2d::Mat4 matrixLookup = getCustomCameraMat4();
-    director->loadIdentityMatrix(cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
     director->multiplyMatrix(cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, matrixLookup);
+    director->loadIdentityMatrix(cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
 }
 
 cocos2d::Mat4 ARDrawer::getCustomProjectMat4()
@@ -72,14 +64,15 @@ cocos2d::Mat4 ARDrawer::getCustomCameraMat4()
 cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
 {
     cocos2d::Size size = cocos2d::Director::getInstance()->getWinSize();
-    float zeye = size.height * 0.5f / tan(_fieldOfView*0.5f);
+    
+    float zeye = (size.height * 0.5f) / tan(_fieldOfView*0.5f*3.1415926/180.0);
     cocos2d::Vec3 point;
     switch (type) {
         case cocos2d::Drawer::POINT_TYPE::POINT_EYE:
             point = cocos2d::Vec3(size.width/2, size.height/2, zeye);
             break;
         case cocos2d::Drawer::POINT_TYPE::POINT_CENTER:
-            point = cocos2d::Vec3(size.width/2, size.height/2, 0.0);
+            point = cocos2d::Vec3(size.width/2, size.height/2, zeye - 10.0f);
             break;
         case cocos2d::Drawer::POINT_TYPE::POINT_UP:
             point = cocos2d::Vec3(0.0f, 1.0f, 0.0f);
@@ -96,13 +89,7 @@ cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
 - (void) showAR
 {
     cocos2d::Director::getInstance()->setDrawer(&drawer);
-    [self loadProjectMatrix];
-}
-
-- (void) loadProjectMatrix
-{
-    auto director = cocos2d::Director::getInstance();
-    director->setProjection(cocos2d::Director::Projection::CUSTOM);
+    cocos2d::Director::getInstance()->setProjection(cocos2d::Director::Projection::CUSTOM);
 }
 
 - (void) stopAR
@@ -138,13 +125,13 @@ cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
         for (int i = 0; i < 16; ++i) {
             mMatrix.m[i] = modelViewMatrix.data[i];
         };
-        float scala = 10.0;
+        float scala = 3.0;
         mMatrix.m[12] += (mMatrix.m[8]  * scala);
         mMatrix.m[13] += (mMatrix.m[9]  * scala);
         mMatrix.m[14] += (mMatrix.m[10] * scala);
         mMatrix.m[15] += (mMatrix.m[11] * scala);
         mMatrix.scale(scala, scala, scala);
-        
+
         cocos2d::Vec3 eye = drawer.getCustomPoint(cocos2d::Drawer::POINT_TYPE::POINT_EYE);
         cocos2d::Mat4 cocosMatrix;
         cocos2d::Mat4::createTranslation(eye, &cocosMatrix);
