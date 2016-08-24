@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E08ECCB249E772C2F1B9EA7F8F12E078A34F08BB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E08ECCB249E772C2F1B9EA7F8F12E078A34F08BB" : 0,
+    "62E38AF18CA75E9F975AD7F8CF07304DE4D89A66" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "AC5060EB-A416-42CF-B742-C3749C7C48C9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E08ECCB249E772C2F1B9EA7F8F12E078A34F08BB" : "CocosVuforia\/",
+    "62E38AF18CA75E9F975AD7F8CF07304DE4D89A66" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CocosVuforia",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "frameworks\/runtime-src\/proj.ios_mac\/CocosVuforia.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SiriusZhang\/CocosAR.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "62E38AF18CA75E9F975AD7F8CF07304DE4D89A66"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SiriusZhang\/CocosVuforia.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E08ECCB249E772C2F1B9EA7F8F12E078A34F08BB"
+    }
+  ]
+}

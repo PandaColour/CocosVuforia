@@ -109,7 +109,7 @@ namespace {
 
 // load the data associated to the trackers
 - (bool) doLoadTrackersData {
-    dataSetCurrent = [self loadObjectTrackerDataSet:@"res/OneWorldTech.xml"];
+    dataSetCurrent = [self loadObjectTrackerDataSet:@"res/StonesAndChips.xml"];
     return dataSetCurrent != nil;
 }
 

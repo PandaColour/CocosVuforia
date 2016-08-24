@@ -11,11 +11,6 @@ var globle = {
         {
             if(methodDeal.models[0].name == "stones")
             {
-                var size = cc.winSize;
-                cc.log([size.width, size.height]);
-                var cammerPos = cc.Camera.getDefaultCamera().getPosition3D();
-                cc.log([cammerPos.x, cammerPos.y, cammerPos.z]);
-
                 var modelView = methodDeal.models[0].modelViewMatrix;
                 var methodDeal = {methodName: "decomposeMatrix", modelViewMatrix: modelView};
                 var result = JSON.parse(BaseNative.callNativeMethod(methodDeal));

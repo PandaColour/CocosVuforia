@@ -55,8 +55,6 @@ var HelloWorldLayer = cc.Layer.extend({
       if (stage == "showAR") {
         var methodDeal = {methodName: "showAR"};
         BaseNative.callNativeMethod(methodDeal);
-
-        cc.director.runScene(new HelloWorldScene());
       }
 
       if (stage == "stopAR") {
