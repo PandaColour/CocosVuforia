@@ -84,8 +84,6 @@ static AppDelegate s_sharedApplication;
     cocos2d::Director::getInstance()->setOpenGLView(glview);
     
     [[VuforiaController alloc]initWithEaglView:eaglView];
-    //[eaglView setContext:[EAGLContext currentContext]];
-
     cocos2d::Application::getInstance()->run();
     return YES;
 }
