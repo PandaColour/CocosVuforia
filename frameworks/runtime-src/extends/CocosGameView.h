@@ -26,11 +26,7 @@ private:
 
 @interface CocosGameView : CCEAGLView <UIGLViewProtocol> {
 @private
-    cocos2d::Scene* runningScene;
-    cocos2d::Layer* cameraLayer;
-    cocos2d::Sprite* cammera;
     ARDrawer drawer;
-    cocos2d::Mat4 cammerMat4;
 }
 - (void) showAR;
 - (void) stopAR;

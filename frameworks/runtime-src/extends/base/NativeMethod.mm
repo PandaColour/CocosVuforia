@@ -131,8 +131,6 @@
     cocos2d::Vec3 scale;
     cocos2d::Vec3 translation;
     mat4.decompose(&scale, &quat, &translation);
-    cocos2d::Vec3 axis;
-    quat.toAxisAngle(&axis);
     
     NSMutableArray* quaternion = [NSMutableArray arrayWithCapacity:4];
     [quaternion addObject:[NSNumber numberWithFloat:quat.x]];
@@ -150,17 +148,11 @@
     [translationArrary addObject:[NSNumber numberWithFloat:translation.y]];
     [translationArrary addObject:[NSNumber numberWithFloat:translation.z]];
     
-    NSMutableArray* angleArrary = [NSMutableArray arrayWithCapacity:3];
-    [angleArrary addObject:[NSNumber numberWithFloat:axis.x]];
-    [angleArrary addObject:[NSNumber numberWithFloat:axis.y]];
-    [angleArrary addObject:[NSNumber numberWithFloat:axis.z]];
-    
     NSMutableDictionary* result = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        @"success", @"result",
                                        quaternion, @"quaternion",
                                        scaleArrary, @"scale",
-                                       translationArrary, @"translation",
-                                       angleArrary, @"angle",nil];
+                                       translationArrary, @"translation", nil];
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding] autorelease];

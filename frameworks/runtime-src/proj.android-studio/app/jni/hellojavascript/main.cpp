@@ -13,3 +13,13 @@ void cocos_android_app_init (JNIEnv* env) {
     LOGD("cocos_android_app_init");
     AppDelegate *pAppDelegate = new AppDelegate();
 }
+
+
+extern "C"
+{
+	JNIEXPORT void Java_org_cocos2dx_javascript_turnScreanOrientation_changeGLviewOrientation(JNIEnv*  env, jobject thiz, jint w, jint h)
+	{
+		cocos2d::Size size = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize();
+		cocos2d::Director::getInstance()->getOpenGLView()->setFrameSize(size.height, size.width);
+	}
+}

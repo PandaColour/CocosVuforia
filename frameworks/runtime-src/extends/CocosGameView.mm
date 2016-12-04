@@ -49,9 +49,11 @@ cocos2d::Mat4 ARDrawer::getCustomProjectMat4()
     for (int i = 0; i < 16; ++i) {
         matrixPerspective.m[i] = projectionMatrix.data[i];
     }
+    
     _fieldOfView = MATH_RAD_TO_DEG(2 * atan(1.0/matrixPerspective.m[5]));
-    _aspectRatio = matrixPerspective.m[5]/matrixPerspective.m[0];
+    //_aspectRatio = matrixPerspective.m[5]/matrixPerspective.m[0];
     return matrixPerspective;
+
 }
 
 cocos2d::Mat4 ARDrawer::getCustomCameraMat4()
@@ -66,6 +68,7 @@ cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
     cocos2d::Size size = cocos2d::Director::getInstance()->getWinSize();
     
     float zeye = (size.height * 0.5f) / tan(_fieldOfView*0.5f*3.1415926/180.0);
+    if (_fieldOfView == 180) zeye = -1429.0f;
     cocos2d::Vec3 point;
     switch (type) {
         case cocos2d::Drawer::POINT_TYPE::POINT_EYE:
