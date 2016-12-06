@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="839e6be3-2571-47d8-910b-1d7386788d3b" Publisher="CN=dalestam" Version="1.0.0.5" />
-  <mp:PhoneIdentity PhoneProductId="839e6be3-2571-47d8-910b-1d7386788d3b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="A6C07E44-59B3-477C-829D-18B4E183B079" Publisher="CN=dalestam" Version="1.0.0.5" />
+  <mp:PhoneIdentity PhoneProductId="cc03f9ac-ca18-456f-aa00-f9919d6b2389" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>template.WindowsPhone</DisplayName>
+    <DisplayName>CocosVuforia.WindowsPhone</DisplayName>
     <PublisherDisplayName>dalestam</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="cocos2d_WindowsPhone.App">
-      <m3:VisualElements DisplayName="template.WindowsPhone" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="template.WindowsPhone" ForegroundText="light" BackgroundColor="transparent">
+      <m3:VisualElements DisplayName="CocosVuforia.WindowsPhone" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="CocosVuforia.WindowsPhone" ForegroundText="light" BackgroundColor="transparent">
         <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />

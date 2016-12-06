@@ -72,6 +72,8 @@
 		D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B061231803AB9F0077942B /* CoreMotion.framework */; };
 		ED545A821B68A21500C3958E /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED545A811B68A21500C3958E /* libiconv.dylib */; };
 		ED545A841B68A21C00C3958E /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED545A831B68A21C00C3958E /* libiconv.dylib */; };
+		FC761C771DF562AA00D4BA90 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC761C761DF562AA00D4BA90 /* CoreText.framework */; };
+		FC761C791DF562B500D4BA90 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC761C781DF562B500D4BA90 /* CoreMotion.framework */; };
 		FCC124A51D45B66E0013B523 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC124A41D45B66E0013B523 /* CoreVideo.framework */; };
 		FCC124A71D45B67A0013B523 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC124A61D45B67A0013B523 /* CoreMedia.framework */; };
 		FCC124A91D45B68F0013B523 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC124A81D45B68F0013B523 /* AudioToolbox.framework */; };
@@ -143,6 +145,20 @@
 			remoteGlobalIDString = A03F31E81781479B006731B9;
 			remoteInfo = "jsbindings Mac";
 		};
+		FC761C711DF5610F00D4BA90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 507B427D1C31DCC60067B53E;
+			remoteInfo = "libjscocos2d tvOS";
+		};
+		FC761C741DF5610F00D4BA90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 507B40FD1C31BDD30067B53E;
+			remoteInfo = "libcocos2d tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -206,6 +222,8 @@
 		D6B061231803AB9F0077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		ED545A811B68A21500C3958E /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/usr/lib/libiconv.dylib; sourceTree = DEVELOPER_DIR; };
 		ED545A831B68A21C00C3958E /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		FC761C761DF562AA00D4BA90 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		FC761C781DF562B500D4BA90 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		FCC124A41D45B66E0013B523 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
 		FCC124A61D45B67A0013B523 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		FCC124A81D45B68F0013B523 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
@@ -253,6 +271,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC761C791DF562B500D4BA90 /* CoreMotion.framework in Frameworks */,
+				FC761C771DF562AA00D4BA90 /* CoreText.framework in Frameworks */,
 				FCC124B11D45B6F90013B523 /* libVuforia.a in Frameworks */,
 				FCC124AF1D45B6CF0013B523 /* CoreFoundation.framework in Frameworks */,
 				FCC124AD1D45B6C00013B523 /* SystemConfiguration.framework in Frameworks */,
@@ -298,6 +318,7 @@
 			children = (
 				1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */,
 				1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */,
+				FC761C751DF5610F00D4BA90 /* libcocos2d tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -360,6 +381,8 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FC761C781DF562B500D4BA90 /* CoreMotion.framework */,
+				FC761C761DF562AA00D4BA90 /* CoreText.framework */,
 				FCC124B01D45B6F90013B523 /* libVuforia.a */,
 				FCC124AE1D45B6CF0013B523 /* CoreFoundation.framework */,
 				FCC124AC1D45B6C00013B523 /* SystemConfiguration.framework */,
@@ -398,6 +421,7 @@
 			children = (
 				C037820718BF76AF00FE4F13 /* libjscocos2d Mac.a */,
 				C037820918BF76AF00FE4F13 /* libjscocos2d iOS.a */,
+				FC761C721DF5610F00D4BA90 /* libjscocos2d tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -573,6 +597,20 @@
 			fileType = archive.ar;
 			path = "libjscocos2d iOS.a";
 			remoteRef = C037820818BF76AF00FE4F13 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FC761C721DF5610F00D4BA90 /* libjscocos2d tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libjscocos2d tvOS.a";
+			remoteRef = FC761C711DF5610F00D4BA90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FC761C751DF5610F00D4BA90 /* libcocos2d tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libcocos2d tvOS.a";
+			remoteRef = FC761C741DF5610F00D4BA90 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -790,7 +828,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../VuforiaSdk/include";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../VuforiaSdk/lib/arm";
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cocos.cocos.vuforia.3d;
@@ -821,7 +859,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../VuforiaSdk/include";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../VuforiaSdk/lib/arm";
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cocos.cocos.vuforia.3d;

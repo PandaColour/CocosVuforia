@@ -24,6 +24,7 @@ class NativeMethodDeal{
     protected JSONObject params;
 }
 
+@SuppressWarnings("unused")
 public class NativeMethodInterface {
     public static String callNativeMethod(String param) {
         String ret = "";
@@ -80,6 +81,7 @@ public class NativeMethodInterface {
     }
 }
 
+@SuppressWarnings("unused")
 class getStatusBarOrientation extends NativeMethodDeal{
     @Override
     public String callRealMethod() {
@@ -104,6 +106,7 @@ class turnScreanOrientation extends NativeMethodDeal {
     public static native void changeGLviewOrientation();
 }
 
+@SuppressWarnings("unused")
 class turnScreanToHorizontal extends turnScreanOrientation{
     @Override
     public String callRealMethod() {
@@ -113,6 +116,7 @@ class turnScreanToHorizontal extends turnScreanOrientation{
     }
 }
 
+@SuppressWarnings("unused")
 class turnScreanToVertical extends turnScreanOrientation{
     @Override
     public String callRealMethod() {
@@ -122,19 +126,22 @@ class turnScreanToVertical extends turnScreanOrientation{
     }
 }
 
-
+@SuppressWarnings("unused")
 class showAR extends NativeMethodDeal {
     @Override
     public String callRealMethod() {
-        Log.i("ar", "callRealMethod: show ar.");
+        Log.e("show ar", "callRealMethod:xxx " );
+        AppActivity.getAppActivity().showAR();
+
         return String.format("{\"result\": \"success\"}");
     }
 }
 
+@SuppressWarnings("unused")
 class stopAR extends NativeMethodDeal {
     @Override
     public String callRealMethod() {
-        Log.i("ar", "callRealMethod: stop ar.");
+        AppActivity.getAppActivity().stopAR();
         return String.format("{\"result\": \"success\"}");
     }
 }

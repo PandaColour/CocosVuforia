@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "name": "template",
-  "description": "template",
+  "name": "CocosVuforia",
+  "description": "CocosVuforia",
   "launch_path": "/index.html",
   "icons": {
     "128": "/res/icon.png"

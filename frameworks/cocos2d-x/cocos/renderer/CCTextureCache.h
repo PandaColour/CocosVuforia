@@ -28,7 +28,6 @@ THE SOFTWARE.
 #ifndef __CCTEXTURE_CACHE_H__
 #define __CCTEXTURE_CACHE_H__
 
-#include <string>
 #include <mutex>
 #include <thread>
 #include <condition_variable>
@@ -42,7 +41,6 @@ THE SOFTWARE.
 #include "platform/CCImage.h"
 
 #if CC_ENABLE_CACHE_TEXTURE_DATA
-    #include "platform/CCImage.h"
     #include <list>
 #endif
 
@@ -84,6 +82,9 @@ public:
      */
     CC_DEPRECATED_ATTRIBUTE static void reloadAllTextures();
 
+    // ETC1 ALPHA supports.
+    static void setETC1AlphaFileSuffix(const std::string& suffix);
+
 public:
     /**
      * @js ctor
@@ -100,7 +101,7 @@ public:
      */
     virtual std::string getDescription() const;
 
-//    Dictionary* snapshotTextures();
+    // Dictionary* snapshotTextures();
 
     /** Returns a Texture2D object given an filename.
     * If the filename was not previously loaded, it will create a new Texture2D.
@@ -117,7 +118,7 @@ public:
     * The callback will be called from the main thread, so it is safe to create any cocos2d object from the callback.
     * Supported image extensions: .png, .jpg
      @param filepath A null terminated string.
-     @param callback A callback function would be inovked after the image is loaded.
+     @param callback A callback function would be invoked after the image is loaded.
      @since v0.8
     */
     virtual void addImageAsync(const std::string &filepath, const std::function<void(Texture2D*)>& callback);
@@ -143,9 +144,6 @@ public:
     */
     Texture2D* addImage(Image *image, const std::string &key);
     CC_DEPRECATED_ATTRIBUTE Texture2D* addUIImage(Image *image, const std::string& key) { return addImage(image,key); }
-    
-    Texture2D* addTexture(Texture2D *texture, const std::string &key);
-    CC_DEPRECATED_ATTRIBUTE Texture2D* addUITexture(Texture2D *texture, const std::string& key) { return addTexture(texture,key); }
 
     /** Returns an already created texture. Returns nil if the texture doesn't exist.
     @param key It's the related/absolute path of the file image.
@@ -194,7 +192,7 @@ public:
     */
     std::string getCachedTextureInfo() const;
 
-    //Wait for texture cahe to quit befor destroy instance.
+    //Wait for texture cache to quit before destroy instance.
     /**Called by director, please do not called outside.*/
     void waitForQuit();
 
@@ -205,7 +203,18 @@ public:
      *
      * @return The full path of the file.
      */
-    const std::string getTextureFilePath(Texture2D* texture)const;
+    std::string getTextureFilePath(Texture2D* texture) const;
+
+    /** Reload texture from a new file.
+    * This function is mainly for editor, won't suggest use it in game for performance reason.
+    *
+    * @param srcName Original texture file name.
+    * @param dstName New texture file name.
+    *
+    * @since v3.10
+    */
+    void renameTextureWithKey(const std::string& srcName, const std::string& dstName);
+
 
 private:
     void addImageAsyncCallBack(float dt);
@@ -231,6 +240,8 @@ protected:
     int _asyncRefCount;
 
     std::unordered_map<std::string, Texture2D*> _textures;
+
+    static std::string s_etc1AlphaFileSuffix;
 };
 
 #if CC_ENABLE_CACHE_TEXTURE_DATA
