@@ -1,8 +1,33 @@
 #include "AppDelegate.h"
 #include "cocos2d.h"
+#include "ScriptingCore.h"
 #include "platform/android/jni/JniHelper.h"
 #include <jni.h>
 #include <android/log.h>
+
+
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
+
+#include <Vuforia/Vuforia.h>
+#include <Vuforia/CameraDevice.h>
+#include <Vuforia/Renderer.h>
+#include <Vuforia/VideoBackgroundConfig.h>
+#include <Vuforia/Trackable.h>
+#include <Vuforia/TrackableResult.h>
+#include <Vuforia/Tool.h>
+#include <Vuforia/Tracker.h>
+#include <Vuforia/TrackerManager.h>
+#include <Vuforia/ObjectTracker.h>
+#include <Vuforia/CameraCalibration.h>
+#include <Vuforia/UpdateCallback.h>
+#include <Vuforia/DataSet.h>
+#include <Vuforia/Device.h>
+#include <Vuforia/RenderingPrimitives.h>
+#include <Vuforia/GLRenderer.h>
+#include <Vuforia/StateUpdater.h>
+#include <Vuforia/ViewList.h>
+
 
 #define  LOG_TAG    "main"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
@@ -14,6 +39,44 @@ void cocos_android_app_init (JNIEnv* env) {
     AppDelegate *pAppDelegate = new AppDelegate();
 }
 
+
+#ifndef _VUFORIA_CUBE_SHADERS_H_
+#define _VUFORIA_CUBE_SHADERS_H_
+
+
+static const char* cubeMeshVertexShader = " \
+  \
+attribute vec4 vertexPosition; \
+attribute vec2 vertexTexCoord; \
+ \
+varying vec2 texCoord; \
+ \
+uniform mat4 modelViewProjectionMatrix; \
+ \
+void main() \
+{ \
+   gl_Position = modelViewProjectionMatrix * vertexPosition; \
+   texCoord = vertexTexCoord; \
+} \
+";
+
+
+static const char* cubeFragmentShader = " \
+ \
+precision mediump float; \
+ \
+varying vec2 texCoord; \
+ \
+uniform sampler2D texSampler2D; \
+ \
+void main() \
+{ \
+   gl_FragColor = texture2D(texSampler2D, texCoord); \
+} \
+";
+
+#endif // _VUFORIA_CUBE_SHADERS_H_
+
 class ARDrawer : public cocos2d::Drawer
 {
 public:
@@ -21,21 +84,268 @@ public:
     virtual void customProject();
     virtual cocos2d::Mat4 getCustomProjectMat4();
     virtual cocos2d::Vec3 getCustomPoint(POINT_TYPE type);
+    void drawVideoBackground();
     cocos2d::Mat4 getCustomCameraMat4();
-    void setProjection(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44);
+    void updateRenderingPrimitives();
+    float getSceneScaleFactor();
+    void drawbg();
 private:
     float _fieldOfView;
     float _aspectRatio;
-    cocos2d::Mat4 _projectionMatrix;
+    cocos2d::CustomCommand _customCommand;
+    void initRendering();
+    unsigned int createProgramFromBuffer(const char* vertexShaderBuffer,
+                                     const char* fragmentShaderBuffer);
+    void scalePoseMatrix(float x, float y, float z, float* matrix);
+    
+private:
+    unsigned int vbShaderProgramID    = 0;
+    GLint vbVertexHandle              = 0;
+    GLint vbTextureCoordHandle        = 0;
+    GLint vbMvpMatrixHandle           = 0;
+    GLint vbTexSampler2DHandle        = 0;
+    bool  bInitRender = false;
+
+    Vuforia::RenderingPrimitives* renderingPrimitives = NULL;
+    pthread_mutex_t renderingPrimitivesMutex;
 };
+
+
+void ARDrawer::scalePoseMatrix(float x, float y, float z, float* matrix)
+{
+    // Sanity check
+    if (!matrix)
+        return;
+
+    // matrix * scale_matrix
+    matrix[0]  *= x;
+    matrix[1]  *= x;
+    matrix[2]  *= x;
+    matrix[3]  *= x;
+                     
+    matrix[4]  *= y;
+    matrix[5]  *= y;
+    matrix[6]  *= y;
+    matrix[7]  *= y;
+                     
+    matrix[8]  *= z;
+    matrix[9]  *= z;
+    matrix[10] *= z;
+    matrix[11] *= z;
+}
+
+
+void ARDrawer::updateRenderingPrimitives()
+{
+    //initRendering();
+    pthread_mutex_lock(&renderingPrimitivesMutex);
+    if (renderingPrimitives != NULL)
+    {
+        delete renderingPrimitives;
+        renderingPrimitives = NULL;
+    }
+    renderingPrimitives = new Vuforia::RenderingPrimitives(Vuforia::Device::getInstance().getRenderingPrimitives());
+    pthread_mutex_unlock(&renderingPrimitivesMutex);
+}
+
+void ARDrawer::initRendering()
+{
+    if (!bInitRender){
+        glClearColor(0.0f, 0.0f, 0.0f, Vuforia::requiresAlpha() ? 0.0f : 1.0f);  
+        vbShaderProgramID = createProgramFromBuffer(cubeMeshVertexShader, cubeFragmentShader);
+        vbVertexHandle        = glGetAttribLocation(vbShaderProgramID, "vertexPosition");
+        vbTextureCoordHandle  = glGetAttribLocation(vbShaderProgramID, "vertexTexCoord");
+        vbMvpMatrixHandle     = glGetUniformLocation(vbShaderProgramID, "modelViewProjectionMatrix");
+        vbTexSampler2DHandle  = glGetUniformLocation(vbShaderProgramID, "texSampler2D");
+        bInitRender = true;
+    }
+}
+
+unsigned int
+ARDrawer::createProgramFromBuffer(const char* vertexShaderBuffer,
+                                     const char* fragmentShaderBuffer)
+{
+#ifdef USE_OPENGL_ES_2_0    
+
+    GLuint vertexShader = initShader(GL_VERTEX_SHADER, vertexShaderBuffer);
+    if (!vertexShader)
+        return 0;    
+
+    GLuint fragmentShader = initShader(GL_FRAGMENT_SHADER,
+                                        fragmentShaderBuffer);
+    if (!fragmentShader)
+        return 0;
+
+    GLuint program = glCreateProgram();
+    if (program)
+    {
+        glAttachShader(program, vertexShader);
+        checkGlError("glAttachShader");
+        
+        glAttachShader(program, fragmentShader);
+        checkGlError("glAttachShader");
+        
+        glLinkProgram(program);
+        GLint linkStatus = GL_FALSE;
+        glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
+        
+        if (linkStatus != GL_TRUE)
+        {
+            GLint bufLength = 0;
+            glGetProgramiv(program, GL_INFO_LOG_LENGTH, &bufLength);
+            if (bufLength)
+            {
+                char* buf = (char*) malloc(bufLength);
+                if (buf)
+                {
+                    glGetProgramInfoLog(program, bufLength, NULL, buf);
+                    LOG("Could not link program: %s", buf);
+                    free(buf);
+                }
+            }
+            glDeleteProgram(program);
+            program = 0;
+        }
+    }
+    return program;
+#else
+    return 0;
+#endif
+}
+
+float ARDrawer::getSceneScaleFactor()
+{
+    static const float VIRTUAL_FOV_Y_DEGS = 85.0f;
+    Vuforia::Vec2F fovVector = Vuforia::CameraDevice::getInstance().getCameraCalibration().getFieldOfViewRads();
+    float cameraFovYRads = fovVector.data[1];
+    float virtualFovYRads = VIRTUAL_FOV_Y_DEGS * M_PI / 180;
+    return tan(cameraFovYRads / 2) / tan(virtualFovYRads / 2);
+}
+
+void ARDrawer::drawVideoBackground() {
+    LOGD("drawVideoBackground");
+    
+
+    //Vuforia::State state = Vuforia::Renderer::getInstance().begin();
+    //Vuforia::Renderer::getInstance().end();
+
+    pthread_mutex_lock(&renderingPrimitivesMutex);
+
+    Vuforia::State state = Vuforia::Renderer::getInstance().begin();
+    //Vuforia::Renderer::getInstance().end();
+
+    int vbVideoTextureUnit = 0;
+    Vuforia::GLTextureUnit tex;
+    tex.mTextureUnit = vbVideoTextureUnit;
+
+    if (! Vuforia::Renderer::getInstance().updateVideoBackgroundTexture(&tex))
+    {
+        LOGD("Unable to bind video background texture!!");
+        Vuforia::Renderer::getInstance().end();
+        pthread_mutex_unlock(&renderingPrimitivesMutex);
+        return;
+    }
+
+    // pthread_mutex_unlock(&renderingPrimitivesMutex);
+    //     return;
+
+    LOGD("drawVideoBackground bind video background texture");
+
+    Vuforia::Matrix44F vbProjectionMatrix = Vuforia::Tool::convert2GLMatrix(
+                                                                            renderingPrimitives->getVideoBackgroundProjectionMatrix(Vuforia::VIEW_SINGULAR, Vuforia::COORDINATE_SYSTEM_CAMERA));
+
+    if (Vuforia::Device::getInstance().isViewerActive())
+    {
+        float sceneScaleFactor = getSceneScaleFactor();
+        scalePoseMatrix(sceneScaleFactor, sceneScaleFactor, 1.0f, vbProjectionMatrix.data);
+    }
+
+    
+
+    GLboolean depthTest = false;
+    GLboolean cullTest = false;
+    GLboolean scissorsTest = false;
+
+    glGetBooleanv(GL_DEPTH_TEST, &depthTest);
+    glGetBooleanv(GL_CULL_FACE, &cullTest);
+    glGetBooleanv(GL_SCISSOR_TEST, &scissorsTest);
+
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_SCISSOR_TEST);
+    //Vuforia::Renderer::getInstance().drawVideoBackground();
+
+    const Vuforia::Mesh& vbMesh = renderingPrimitives->getVideoBackgroundMesh(Vuforia::VIEW_SINGULAR);
+    // Load the shader and upload the vertex/texcoord/index data
+    glUseProgram(vbShaderProgramID);
+    glVertexAttribPointer(vbVertexHandle, 3, GL_FLOAT, false, 0, vbMesh.getPositionCoordinates());
+    glVertexAttribPointer(vbTextureCoordHandle, 2, GL_FLOAT, false, 0, vbMesh.getUVCoordinates());
+
+    glUniform1i(vbTexSampler2DHandle, vbVideoTextureUnit);
+
+    // Render the video background with the custom shader
+    // First, we enable the vertex arrays
+    glEnableVertexAttribArray(vbVertexHandle);
+    glEnableVertexAttribArray(vbTextureCoordHandle);
+
+    // Pass the projection matrix to OpenGL
+    glUniformMatrix4fv(vbMvpMatrixHandle, 1, GL_FALSE, vbProjectionMatrix.data);
+
+    // Then, we issue the render call
+    glDrawElements(GL_TRIANGLES, vbMesh.getNumTriangles() * 3, GL_UNSIGNED_SHORT,
+                   vbMesh.getTriangles());
+
+    // Finally, we disable the vertex arrays
+    glDisableVertexAttribArray(vbVertexHandle);
+    glDisableVertexAttribArray(vbTextureCoordHandle);
+
+    LOGD("drawVideoBackground  pthread_mutex_unlock");
+
+    if(depthTest)
+        glEnable(GL_DEPTH_TEST);
+
+    if(cullTest)
+        glEnable(GL_CULL_FACE);
+
+    if(scissorsTest)
+        glEnable(GL_SCISSOR_TEST);
+        
+
+    Vuforia::Renderer::getInstance().end();
+    LOGD("drawVideoBackground  pthread_mutex_unlock");
+    pthread_mutex_unlock(&renderingPrimitivesMutex);
+
+    LOGD("drawVideoBackground out");
+}
 
 void ARDrawer::draw()
 {
+    // LOGD("draw in");
+    // pthread_mutex_lock(&renderingPrimitivesMutex);
     // Vuforia::State state = Vuforia::Renderer::getInstance().begin();
-    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // Vuforia::Renderer::getInstance().drawVideoBackground();
     // Vuforia::Renderer::getInstance().end();
+    // pthread_mutex_unlock(&renderingPrimitivesMutex);
+    // LOGD("draw out");
+
+    //drawVideoBackground();
+    _customCommand.init(-100);
+    _customCommand.func = CC_CALLBACK_0(ARDrawer::drawbg, this);
+    cocos2d::Director::getInstance()->getRenderer()->addCommand(&_customCommand);
 }
+
+void ARDrawer::drawbg()
+{
+    LOGD("draw in");
+    //pthread_mutex_lock(&renderingPrimitivesMutex);
+    Vuforia::State state = Vuforia::Renderer::getInstance().begin();
+    Vuforia::Renderer::getInstance().drawVideoBackground();
+    Vuforia::Renderer::getInstance().end();
+    //pthread_mutex_unlock(&renderingPrimitivesMutex);
+    LOGD("draw out");
+}
+
+
 
 void ARDrawer::customProject()
 {
@@ -50,7 +360,15 @@ void ARDrawer::customProject()
 
 cocos2d::Mat4 ARDrawer::getCustomProjectMat4()
 {
-    return _projectionMatrix;
+    const Vuforia::CameraCalibration& cameraCalibration = Vuforia::CameraDevice::getInstance().getCameraCalibration();
+    Vuforia::Matrix44F projectionMatrix = Vuforia::Tool::getProjectionGL(cameraCalibration, 2.0f, 5000.0f);
+    cocos2d::Mat4 matrixPerspective;
+    for (int i = 0; i < 16; ++i) {
+        matrixPerspective.m[i] = projectionMatrix.data[i];
+    }
+    _fieldOfView = MATH_RAD_TO_DEG(2 * atan(1.0/matrixPerspective.m[5]));
+    //_aspectRatio = matrixPerspective.m[5]/matrixPerspective.m[0];
+    return matrixPerspective;
 }
 
 cocos2d::Mat4 ARDrawer::getCustomCameraMat4()
@@ -65,7 +383,8 @@ cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
     cocos2d::Size size = cocos2d::Director::getInstance()->getWinSize();
     
     float zeye = (size.height * 0.5f) / tan(_fieldOfView*0.5f*3.1415926/180.0);
-    if (_fieldOfView == 180) zeye = -1429.0f;
+    if (_fieldOfView == 180) 
+        zeye = -1429.0f;
     cocos2d::Vec3 point;
     switch (type) {
         case cocos2d::Drawer::POINT_TYPE::POINT_EYE:
@@ -83,12 +402,6 @@ cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
     return point;
 }
 
-void ARDrawer::setProjection(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
-{
-    _projectionMatrix.set(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
-}
-
-
 
 extern "C"
 {
@@ -98,23 +411,19 @@ extern "C"
 		cocos2d::Director::getInstance()->getOpenGLView()->setFrameSize(size.height, size.width);
 	}
 
-	JNIEXPORT void Java_org_cocos2dx_javascript_AppActivity_setDrawProjectMatrix(JNIEnv*  env, jobject thiz, jfloatArray mat4, jint len)
+	JNIEXPORT void Java_org_cocos2dx_javascript_AppActivity_startCocosAR(JNIEnv*  env, jobject thiz)
 	{
 		static ARDrawer drawer;
-
-        jfloat* mat = env->GetFloatArrayElements(mat4, NULL);
-        if (len == 16 && mat) {
-            drawer.setProjection(mat[0], mat[1], mat[2], mat[3], mat[4], mat[5], mat[6], mat[7], mat[8], mat[9], mat[10], mat[11], mat[12], mat[13],
-                mat[14], mat[15]);
-            cocos2d::Director::getInstance()->setDrawer(&drawer);
-            cocos2d::Director::getInstance()->setProjection(cocos2d::Director::Projection::CUSTOM);
-        } 
-        env->ReleaseFloatArrayElements(mat4, mat, 0);
+        drawer.updateRenderingPrimitives();
+        cocos2d::Director::getInstance()->setDrawer(&drawer);
+        cocos2d::Director::getInstance()->setProjection(cocos2d::Director::Projection::CUSTOM);
 	}
 
-	JNIEXPORT void Java_org_cocos2dx_javascript_xxx_stopAR(JNIEnv*  env, jobject thiz, jint w, jint h)
+	JNIEXPORT void Java_org_cocos2dx_javascript_AppActivity_stopCocosAR(JNIEnv*  env, jobject thiz)
 	{
 		cocos2d::Director::getInstance()->setDrawer(nullptr);
         cocos2d::Director::getInstance()->setProjection(cocos2d::Director::Projection::_3D);
 	}
+
+
 }

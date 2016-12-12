@@ -355,7 +355,158 @@ obj/local/armeabi-v7a/objs-debug/cocos2djs_shared/hellojavascript/main.o: \
  /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../deprecated/CCNotificationCenter.h \
  /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../deprecated/CCSet.h \
  /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../renderer/CCGLProgramCache.h \
- /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../renderer/ccGLStateCache.h
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../renderer/ccGLStateCache.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/scripting/js-bindings/proj.android/../manual/ScriptingCore.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsapi.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/FloatingPoint.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Assertions.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Attributes.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Compiler.h \
+ /Users/jiaxuzhang/android-ndk-r13b/sources/cxx-stl/gnu-libstdc++/4.9/include/cstddef \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Likely.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/MacroArgs.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/TypeTraits.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Types.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Casting.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/MathAlgorithms.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/MemoryReporting.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Range.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/NullPtr.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/RangedPtr.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/ArrayUtils.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Alignment.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Array.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/RangedPtr.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/TypedEnum.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/TypedEnumInternal.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsalloc.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/TypeDecls.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js-config.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js-config-32.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Utility.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Move.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Scoped.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/GuardObjects.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/TemplateLib.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jstypes.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Attributes.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Types.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js-config.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsversion.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jscpucfg.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jspubtd.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Assertions.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/LinkedList.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/MemoryReporting.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/NullPtr.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/PodOperations.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsprototypes.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jstypes.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/CallArgs.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/RootingAPI.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/LinkedList.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jspubtd.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/GCAPI.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/HeapAPI.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Utility.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/TypeDecls.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Value.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/FloatingPoint.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Anchor.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Class.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/CallArgs.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Id.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/HashTable.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/DebugOnly.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/PodOperations.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/ReentrancyGuard.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Id.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Principals.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Atomics.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/RootingAPI.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/TracingAPI.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Value.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Vector.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Vector.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/AllocPolicy.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsfriendapi.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Casting.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/UniquePtr.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Pair.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsapi.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsbytecode.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/CallNonGenericMethod.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js.msg \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/CocosGUI.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIWidget.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../2d/CCProtectedNode.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UILayoutParameter.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/GUIExport.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/GUIDefine.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../base/ObjectFactory.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UILayout.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIButton.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UICheckBox.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIAbstractCheckButton.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIRadioButton.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIImageView.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIText.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UITextAtlas.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UILoadingBar.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIScrollView.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIListView.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UISlider.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UITextField.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UITextBMFont.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIPageView.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIHelper.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIRichText.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIHBox.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIVBox.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIRelativeBox.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIVideoPlayer.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIWebView.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIDeprecated.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIScale9Sprite.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIEditBox/UIEditBox.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UILayoutComponent.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UITabControl.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../editor-support/cocostudio/CocosStudioExtension.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../scripting/js-bindings/manual/js_bindings_config.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../scripting/js-bindings/manual/js_bindings_core.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../scripting/js-bindings/manual/spidermonkey_specifics.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Maybe.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../scripting/js-bindings/manual/js_manual_conversions.h \
+ /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../scripting/js-bindings/manual/js-BindingsExport.h \
+ jni/vuforia/include/Vuforia/Vuforia.h \
+ jni/vuforia/include/Vuforia/System.h \
+ jni/vuforia/include/Vuforia/CameraDevice.h \
+ jni/vuforia/include/Vuforia/NonCopyable.h \
+ jni/vuforia/include/Vuforia/VideoMode.h \
+ jni/vuforia/include/Vuforia/CameraCalibration.h \
+ jni/vuforia/include/Vuforia/Vectors.h \
+ jni/vuforia/include/Vuforia/CameraField.h \
+ jni/vuforia/include/Vuforia/Renderer.h \
+ jni/vuforia/include/Vuforia/Matrices.h \
+ jni/vuforia/include/Vuforia/State.h jni/vuforia/include/Vuforia/Frame.h \
+ jni/vuforia/include/Vuforia/VideoBackgroundConfig.h \
+ jni/vuforia/include/Vuforia/Trackable.h \
+ jni/vuforia/include/Vuforia/Type.h \
+ jni/vuforia/include/Vuforia/TrackableResult.h \
+ jni/vuforia/include/Vuforia/Tool.h jni/vuforia/include/Vuforia/Tracker.h \
+ jni/vuforia/include/Vuforia/TrackerManager.h \
+ jni/vuforia/include/Vuforia/ObjectTracker.h \
+ jni/vuforia/include/Vuforia/UpdateCallback.h \
+ jni/vuforia/include/Vuforia/DataSet.h \
+ jni/vuforia/include/Vuforia/Device.h \
+ jni/vuforia/include/Vuforia/ViewerParameters.h \
+ jni/vuforia/include/Vuforia/ViewerParametersList.h \
+ jni/vuforia/include/Vuforia/RenderingPrimitives.h \
+ jni/vuforia/include/Vuforia/View.h \
+ jni/vuforia/include/Vuforia/ViewList.h \
+ jni/vuforia/include/Vuforia/Mesh.h \
+ jni/vuforia/include/Vuforia/GLRenderer.h \
+ jni/vuforia/include/Vuforia/StateUpdater.h
 
 jni/../../../Classes/AppDelegate.h:
 
@@ -1070,3 +1221,309 @@ jni/../../../Classes/AppDelegate.h:
 /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../renderer/CCGLProgramCache.h:
 
 /Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../renderer/ccGLStateCache.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/scripting/js-bindings/proj.android/../manual/ScriptingCore.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsapi.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/FloatingPoint.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Assertions.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Attributes.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Compiler.h:
+
+/Users/jiaxuzhang/android-ndk-r13b/sources/cxx-stl/gnu-libstdc++/4.9/include/cstddef:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Likely.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/MacroArgs.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/TypeTraits.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Types.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Casting.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/MathAlgorithms.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/MemoryReporting.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Range.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/NullPtr.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/RangedPtr.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/ArrayUtils.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Alignment.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Array.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/RangedPtr.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/TypedEnum.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/TypedEnumInternal.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsalloc.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/TypeDecls.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js-config.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js-config-32.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Utility.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Move.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Scoped.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/GuardObjects.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/TemplateLib.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jstypes.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Attributes.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Types.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js-config.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsversion.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jscpucfg.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jspubtd.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Assertions.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/LinkedList.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/MemoryReporting.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/NullPtr.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/PodOperations.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsprototypes.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jstypes.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/CallArgs.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/RootingAPI.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/LinkedList.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jspubtd.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/GCAPI.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/HeapAPI.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Utility.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/TypeDecls.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Value.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/FloatingPoint.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Anchor.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Class.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/CallArgs.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Id.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/HashTable.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/DebugOnly.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/PodOperations.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/ReentrancyGuard.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Id.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Principals.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Atomics.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/RootingAPI.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/TracingAPI.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Value.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/Vector.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Vector.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/AllocPolicy.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsfriendapi.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Casting.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/UniquePtr.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Pair.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsapi.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/jsbytecode.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js/CallNonGenericMethod.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/js.msg:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/CocosGUI.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIWidget.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../2d/CCProtectedNode.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UILayoutParameter.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/GUIExport.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/GUIDefine.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../base/ObjectFactory.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UILayout.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIButton.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UICheckBox.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIAbstractCheckButton.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIRadioButton.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIImageView.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIText.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UITextAtlas.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UILoadingBar.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIScrollView.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIListView.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UISlider.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UITextField.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UITextBMFont.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIPageView.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIHelper.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIRichText.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIHBox.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIVBox.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIRelativeBox.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIVideoPlayer.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIWebView.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIDeprecated.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIScale9Sprite.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UIEditBox/UIEditBox.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UILayoutComponent.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../ui/UITabControl.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../editor-support/cocostudio/CocosStudioExtension.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../scripting/js-bindings/manual/js_bindings_config.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../scripting/js-bindings/manual/js_bindings_core.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../scripting/js-bindings/manual/spidermonkey_specifics.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/external/spidermonkey/prebuilt/android/../../include/android/mozilla/Maybe.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../scripting/js-bindings/manual/js_manual_conversions.h:
+
+/Users/jiaxuzhang/Documents/demo/CocosVuforia/frameworks/runtime-src/proj.android-studio/../../cocos2d-x/cocos/3d/../scripting/js-bindings/manual/js-BindingsExport.h:
+
+jni/vuforia/include/Vuforia/Vuforia.h:
+
+jni/vuforia/include/Vuforia/System.h:
+
+jni/vuforia/include/Vuforia/CameraDevice.h:
+
+jni/vuforia/include/Vuforia/NonCopyable.h:
+
+jni/vuforia/include/Vuforia/VideoMode.h:
+
+jni/vuforia/include/Vuforia/CameraCalibration.h:
+
+jni/vuforia/include/Vuforia/Vectors.h:
+
+jni/vuforia/include/Vuforia/CameraField.h:
+
+jni/vuforia/include/Vuforia/Renderer.h:
+
+jni/vuforia/include/Vuforia/Matrices.h:
+
+jni/vuforia/include/Vuforia/State.h:
+
+jni/vuforia/include/Vuforia/Frame.h:
+
+jni/vuforia/include/Vuforia/VideoBackgroundConfig.h:
+
+jni/vuforia/include/Vuforia/Trackable.h:
+
+jni/vuforia/include/Vuforia/Type.h:
+
+jni/vuforia/include/Vuforia/TrackableResult.h:
+
+jni/vuforia/include/Vuforia/Tool.h:
+
+jni/vuforia/include/Vuforia/Tracker.h:
+
+jni/vuforia/include/Vuforia/TrackerManager.h:
+
+jni/vuforia/include/Vuforia/ObjectTracker.h:
+
+jni/vuforia/include/Vuforia/UpdateCallback.h:
+
+jni/vuforia/include/Vuforia/DataSet.h:
+
+jni/vuforia/include/Vuforia/Device.h:
+
+jni/vuforia/include/Vuforia/ViewerParameters.h:
+
+jni/vuforia/include/Vuforia/ViewerParametersList.h:
+
+jni/vuforia/include/Vuforia/RenderingPrimitives.h:
+
+jni/vuforia/include/Vuforia/View.h:
+
+jni/vuforia/include/Vuforia/ViewList.h:
+
+jni/vuforia/include/Vuforia/Mesh.h:
+
+jni/vuforia/include/Vuforia/GLRenderer.h:
+
+jni/vuforia/include/Vuforia/StateUpdater.h:
