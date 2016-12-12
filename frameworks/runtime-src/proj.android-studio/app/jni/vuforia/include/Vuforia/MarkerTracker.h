@@ -25,7 +25,7 @@ namespace Vuforia
 // Forward Declaration
 class Marker;
 
-/// MarkerTracker class (DEPRECATED).
+/// MarkerTracker class.
 /**
  *  The MarkerTracker tracks rectangular markers and provides methods for
  *  creating and destroying these dynamically.
@@ -35,10 +35,6 @@ class Marker;
  *  The suggested way of doing this is during the execution of UpdateCallback,
  *  which guarantees that the MarkerTracker is not working concurrently.
  *  Alternatively the MarkerTracker can be stopped explicitly.
- *  
- *  Deprecated: This class as been deprecated. Markers of various shapes are 
- *  supported using VuMark. To duplicate the functionality of the MarkerTracker
- *  use a rectangle VuMark. 
  */
 class VUFORIA_API MarkerTracker : public Tracker
 {

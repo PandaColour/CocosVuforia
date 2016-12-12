@@ -22,11 +22,7 @@ countries.
 namespace Vuforia
 {
 
-/// Result for a Marker (DEPRECATED).
-/**
- * This class is deprecated. The same functionality
- * is provided by using a rectangular VuMark
- */
+/// Result for a Marker.
 class VUFORIA_API MarkerResult : public TrackableResult
 {
 public:

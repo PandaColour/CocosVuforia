@@ -23,11 +23,7 @@ countries.
 namespace Vuforia
 {
 
-/// A rectangular marker (DEPRECATED)
-/**
- * This class is deprecated. The same functionality
- * is provided by using a rectangular VuMark.
- */
+/// A rectangular marker
 class VUFORIA_API Marker : public Trackable
 {
 public:
