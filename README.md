@@ -7,7 +7,9 @@ cocos compile -s /*yourpath*/ -p android --ap android-22 -m debug  --android-stu
 
 
 #实现cocos2dx 和 vuforia 结合
-安卓版本 ios版本
+ios版本
+安卓版本
+cocos2dx 自动的UI系统全部不能使用了,按钮等控件需要自己重现实现,如果使用原来的控件,响应点和显示点屏幕水平中线对称
 
 #2016/12/12
 ios版本是完全支持的
