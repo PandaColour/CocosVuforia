@@ -1,6 +1,9 @@
 package org.cocos2dx.javascript;
 import android.util.Log;
 import android.content.pm.ActivityInfo;
+
+import com.vuforia.Vuforia;
+
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
@@ -130,9 +133,7 @@ class turnScreanToVertical extends turnScreanOrientation{
 class showAR extends NativeMethodDeal {
     @Override
     public String callRealMethod() {
-        Log.e("show ar", "callRealMethod:xxx " );
         AppActivity.getAppActivity().showAR();
-
         return String.format("{\"result\": \"success\"}");
     }
 }

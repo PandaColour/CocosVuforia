@@ -30,10 +30,11 @@ var HelloWorldLayer = cc.Layer.extend({
 
         //3D models
         var sprite1 = new jsb.Sprite3D("res/Sprite3DTest/boss.c3b");
-        sprite1.setPosition3D(cc.math.vec3(size.width/2, size.height/2, 1));
+        sprite1.setPosition3D(cc.math.vec3(size.width/2, size.height/2, 0));
         sprite1.setName("boss1");
         sprite1.setScale(20);
         sprite1.setVisible(true);
+        sprite1.setCullFaceEnabled(false);
         this.addChild(sprite1);
 
         var item2 = new cc.MenuItemImage(res.CloseNormal_png, res.CloseSelected_png, this._menuCallback.bind(this, "stopAR"), this);

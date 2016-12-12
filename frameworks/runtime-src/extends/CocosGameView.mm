@@ -49,8 +49,9 @@ cocos2d::Mat4 ARDrawer::getCustomProjectMat4()
     for (int i = 0; i < 16; ++i) {
         matrixPerspective.m[i] = projectionMatrix.data[i];
     }
-    
+    //CameraDevice.getInstance().getCameraCalibration().getFieldOfViewRads()
     _fieldOfView = MATH_RAD_TO_DEG(2 * atan(1.0/matrixPerspective.m[5]));
+    //Vuforia::CameraDevice::getInstance().getCameraCalibration().getFieldOfViewRads();
     //_aspectRatio = matrixPerspective.m[5]/matrixPerspective.m[0];
     return matrixPerspective;
 
@@ -134,7 +135,7 @@ cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
         mMatrix.m[14] += (mMatrix.m[10] * scala);
         mMatrix.m[15] += (mMatrix.m[11] * scala);
         mMatrix.scale(scala, scala, scala);
-
+        
         cocos2d::Vec3 eye = drawer.getCustomPoint(cocos2d::Drawer::POINT_TYPE::POINT_EYE);
         cocos2d::Mat4 cocosMatrix;
         cocos2d::Mat4::createTranslation(eye, &cocosMatrix);

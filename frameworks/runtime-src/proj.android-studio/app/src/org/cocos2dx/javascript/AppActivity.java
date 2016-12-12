@@ -29,57 +29,102 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.nfc.Tag;
+import android.opengl.GLES20;
+import android.opengl.Matrix;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.vuforia.COORDINATE_SYSTEM_TYPE;
+import com.vuforia.CameraCalibration;
 import com.vuforia.CameraDevice;
 import com.vuforia.DataSet;
 import com.vuforia.Device;
 import com.vuforia.Matrix34F;
+import com.vuforia.Matrix44F;
 import com.vuforia.ObjectTracker;
+import com.vuforia.Renderer;
 import com.vuforia.STORAGE_TYPE;
 import com.vuforia.State;
 import com.vuforia.Tool;
 import com.vuforia.Trackable;
 import com.vuforia.Tracker;
 import com.vuforia.TrackerManager;
+import com.vuforia.VIEW;
 import com.vuforia.Vec4I;
+import com.vuforia.VideoBackgroundConfig;
 import com.vuforia.ViewList;
 import com.vuforia.RenderingPrimitives;
+import com.vuforia.Vuforia;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
+import org.cocos2dx.lib.Cocos2dxEditBox;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.cocos2dx.lib.Cocos2dxRenderer;
+import org.cocos2dx.lib.ResizeLayout;
 
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class AppActivity extends Cocos2dxActivity implements VuforiaControl, VuforiaAppRendererControl {
-
-    private CocosGameView mGlView;
-    private VuforiaAppRenderer mVuforiaAppRenderer;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+public class AppActivity extends Cocos2dxActivity implements VuforiaControl {
 
     @Override
     public Cocos2dxGLSurfaceView onCreateView() {
-        CocosGameView glSurfaceView = new CocosGameView(this);
-        // TestCpp should create stencil buffer
+        Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
-
-        mGlView = glSurfaceView;
-
         return glSurfaceView;
+    }
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        vuforiaAppSession = new VuforiaApplicationSession(this);
+        mIsDroidDevice = android.os.Build.MODEL.toLowerCase().startsWith(
+                "droid");
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void init() {
+
+        // FrameLayout
+        ViewGroup.LayoutParams framelayout_params =
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+
+        mFrameLayout = new ResizeLayout(this);
+
+        mFrameLayout.setLayoutParams(framelayout_params);
+
+        // Cocos2dxEditText layout
+        ViewGroup.LayoutParams edittext_layout_params =
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+        Cocos2dxEditBox edittext = new Cocos2dxEditBox(this);
+        edittext.setLayoutParams(edittext_layout_params);
+
+
+        mFrameLayout.addView(edittext);
+
+        // Cocos2dxGLSurfaceView
+        this.mGLSurfaceView = this.onCreateView();
+
+        // ...add to FrameLayout
+        mFrameLayout.addView(this.mGLSurfaceView);
+
+        // Switch to supported OpenGL (ARGB888) mode on emulator
+        if (isAndroidEmulator())
+            this.mGLSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+
+        vuforiaRender = new VuforiaRender(vuforiaAppSession);
+        this.mGLSurfaceView.setCocos2dxRenderer(vuforiaRender);
+        this.mGLSurfaceView.setCocos2dxEditText(edittext);
+
+        // Set framelayout as the content view
+        setContentView(mFrameLayout);
     }
 
     public AppActivity() {
@@ -88,58 +133,74 @@ public class AppActivity extends Cocos2dxActivity implements VuforiaControl, Vuf
     }
 
     private static AppActivity s_self;
-
     public static AppActivity getAppActivity() {
         return s_self;
     }
 
     private static final String LOGTAG = "cocos vuforia";
-    VuforiaApplicationSession vuforiaAppSession;
+    private VuforiaApplicationSession vuforiaAppSession = null;
+    private VuforiaRender vuforiaRender = null;
 
     private DataSet mCurrentDataset;
     private int mCurrentDatasetSelectionIndex = 0;
     private ArrayList<String> mDatasetStrings = new ArrayList<String>();
     private boolean mSwitchDatasetAsap = false;
 
+    private boolean mIsDroidDevice = false;
+    private boolean mIsActive = false;
+    private boolean bChangeProject = false;
+
+    public boolean getAcitve() {
+        return mIsActive;
+    }
+
+    @Override
+    protected void onResume()
+    {
+        Log.d(LOGTAG, "onResume");
+        super.onResume();
+
+        // This is needed for some Droid devices to force portrait
+        if (mIsDroidDevice)
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+
+        try
+        {
+            vuforiaAppSession.resumeAR();
+        } catch (VuforiaApplicationException e)
+        {
+            Log.e(LOGTAG, e.getString());
+        }
+
+        super.onResume();
+    }
+
     public void showAR() {
-        vuforiaAppSession = new VuforiaApplicationSession(this);
         mDatasetStrings.add("res/StonesAndChips.xml");
         vuforiaAppSession
                 .initAR(this, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+//        float rawProjectionMatrixGL[] = {1.69032f,0.0f,0.0f,0.0f,0.0f,-3.0050135f,0.0f,0.0f, 0.0f, -0.0027777778f, 1.004008f, 1.0f, 0.0f, 0.0f, -20.040081f, 0.0f};
+//
+//
+//        setDrawProjectMatrix(rawProjectionMatrixGL, 16);
     }
 
     public void stopAR() {
         try {
+            bChangeProject = false;
             vuforiaAppSession.stopAR();
+            stopCocosAR();
         } catch (VuforiaApplicationException e) {
             Log.e(LOGTAG, e.getString());
         }
     }
 
-    private void startAR() {
-        RenderingPrimitives mRenderingPrimitives = Device.getInstance().getRenderingPrimitives();
-        ViewList viewList = mRenderingPrimitives.getRenderingViews();
-
-        for (int v = 0; v < viewList.getNumViews(); v++) {
-            int viewID = viewList.getView(v);
-
-            Vec4I viewport;
-            viewport = mRenderingPrimitives.getViewport(viewID);
-
-            Matrix34F projMatrix = mRenderingPrimitives.getProjectionMatrix(viewID, COORDINATE_SYSTEM_TYPE.COORDINATE_SYSTEM_CAMERA);
-            float rawProjectionMatrixGL[] = Tool.convertPerspectiveProjection2GLMatrix(
-                    projMatrix,
-                    2.0f,
-                    5000.0f)
-                    .getData();
-
-            setDrawProjectMatrix(rawProjectionMatrixGL, rawProjectionMatrixGL.length);
-
-        }
-    }
-
-    private  native void setDrawProjectMatrix(float[] projectMatrix, int length);
-
+    private native void startCocosAR();
+    private native void stopCocosAR();
 
     // Methods to load and destroy tracking data.
     @Override
@@ -178,7 +239,6 @@ public class AppActivity extends Cocos2dxActivity implements VuforiaControl, Vuf
         return true;
     }
 
-
     @Override
     public boolean doUnloadTrackersData() {
         // Indicate if the trackers were unloaded correctly
@@ -204,28 +264,34 @@ public class AppActivity extends Cocos2dxActivity implements VuforiaControl, Vuf
         return result;
     }
 
-
     @Override
     public void onInitARDone(VuforiaApplicationException exception) {
 
         if (exception == null) {
-
             initApplicationAR();
-
+            vuforiaRender.setActive(true);
             try {
-                vuforiaAppSession.startAR(CameraDevice.CAMERA_DIRECTION.CAMERA_DIRECTION_DEFAULT);
+                vuforiaAppSession.startAR(CameraDevice.CAMERA_DIRECTION.CAMERA_DIRECTION_BACK);
             } catch (VuforiaApplicationException e) {
                 Log.e("vuforia", e.getString());
             }
+
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+            boolean result = CameraDevice.getInstance().setFocusMode(
+                    CameraDevice.FOCUS_MODE.FOCUS_MODE_CONTINUOUSAUTO);
+
+            if (!result)
+                Log.e(LOGTAG, "Unable to enable continuous autofocus");
+
         }
     }
 
-    private void initApplicationAR() {
-        mVuforiaAppRenderer = new VuforiaAppRenderer(this, this, Device.MODE.MODE_AR, false, 10f, 5000f);
-    }
-
-    public void renderFrame(State state, float[] projectionMatrix) {
-        Log.i(LOGTAG, "renderFrame xxxxx");
+    private  void initApplicationAR(){
+        Device device = Device.getInstance();
+        device.setViewerActive(false); // Indicates if the app will be using a viewer, stereo mode and initializes the rendering primitives
+        device.setMode(Device.MODE.MODE_AR); // Select if we will be in AR or VR mode
     }
 
     @Override
@@ -277,13 +343,13 @@ public class AppActivity extends Cocos2dxActivity implements VuforiaControl, Vuf
         Tracker objectTracker = TrackerManager.getInstance().getTracker(
                 ObjectTracker.getClassType());
         if (objectTracker != null) {
-            startAR();
             objectTracker.start();
+            mIsActive = true;
+            startCocosAR();
         }
-
-
         return result;
     }
+
 
 
     @Override
@@ -299,7 +365,6 @@ public class AppActivity extends Cocos2dxActivity implements VuforiaControl, Vuf
         return result;
     }
 
-
     @Override
     public boolean doDeinitTrackers() {
         // Indicate if the trackers were deinitialized correctly
@@ -309,50 +374,5 @@ public class AppActivity extends Cocos2dxActivity implements VuforiaControl, Vuf
         tManager.deinitTracker(ObjectTracker.getClassType());
 
         return result;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("App Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
     }
 }

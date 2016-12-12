@@ -37,7 +37,7 @@ public class VuforiaApplicationSession implements UpdateCallbackInterface
     private Object mShutdownLock = new Object();
 
     private int mVuforiaFlags = 0;
-    private int mCamera = CameraDevice.CAMERA_DIRECTION.CAMERA_DIRECTION_DEFAULT;
+    private int mCamera = CameraDevice.CAMERA_DIRECTION.CAMERA_DIRECTION_BACK;
     
 
     public VuforiaApplicationSession(VuforiaControl sessionControl)
@@ -214,8 +214,7 @@ public class VuforiaApplicationSession implements UpdateCallbackInterface
             
         }
     }
-    
-    
+
     // Resumes Vuforia, restarts the trackers and the camera
     public void resumeAR() throws VuforiaApplicationException
     {
