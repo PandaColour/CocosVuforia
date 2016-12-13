@@ -49,8 +49,8 @@ public:
     virtual void customProject();
     virtual cocos2d::Mat4 getCustomProjectMat4();
     virtual cocos2d::Vec3 getCustomPoint(POINT_TYPE type);
-private:
     cocos2d::Mat4 getCustomCameraMat4();
+private:
     void dealMatix(Vuforia::State state);
 private:
     float _fieldOfView;
@@ -61,7 +61,8 @@ private:
 void ARDrawer::draw()
 {
     Vuforia::State state = Vuforia::Renderer::getInstance().begin();
-    Vuforia::Renderer::getInstance().drawVideoBackground();
+    //Vuforia::Renderer::getInstance().drawVideoBackground();
+    // may be the current thread is not the render thread
     dealMatix(state);
     Vuforia::Renderer::getInstance().end();
 }
@@ -89,7 +90,7 @@ void ARDrawer::dealMatix(Vuforia::State state)
         mMatrix.m[15] += (mMatrix.m[11] * scala);
         mMatrix.scale(scala, scala, scala);
         
-        cocos2d::Vec3 eye = drawer.getCustomPoint(cocos2d::Drawer::POINT_TYPE::POINT_EYE);
+        cocos2d::Vec3 eye = getCustomPoint(cocos2d::Drawer::POINT_TYPE::POINT_EYE);
         cocos2d::Mat4 cocosMatrix;
         cocos2d::Mat4::createTranslation(eye, &cocosMatrix);
         cocosMatrix.multiply(mMatrix);
@@ -204,7 +205,6 @@ extern "C"
 	JNIEXPORT void Java_org_cocos2dx_javascript_AppActivity_startCocosAR(JNIEnv*  env, jobject thiz)
 	{
 		static ARDrawer drawer;
-        drawer.updateRenderingPrimitives();
         cocos2d::Director::getInstance()->setDrawer(&drawer);
         cocos2d::Director::getInstance()->setProjection(cocos2d::Director::Projection::CUSTOM);
 	}
