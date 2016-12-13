@@ -54,35 +54,12 @@ import javax.microedition.khronos.opengles.GL10;
 public class VuforiaRender extends Cocos2dxRenderer{
     private static final String LOGTAG = "VuforiaRender";
     private VuforiaApplicationSession vuforiaAppSession;
-    private float mNearPlane = 10.0f;
-    private float mFarPlane = 5000.0f;
-
-    private GLTextureUnit videoBackgroundTex = null;
-
-    private int vbShaderProgramID = 0;
-    private int vbTexSampler2DHandle = 0;
-    private int vbVertexHandle = 0;
-    private int vbTexCoordHandle = 0;
-    private int vbProjectionMatrixHandle = 0;
 
     private boolean mIsActive = false;
 
     private int mScreenWidth = 0;
     private int mScreenHeight = 0;
     private boolean mIsPortrait = false;
-
-
-    //Gray scale background
-    private int vbVertexPositionHandle;
-    private int vbVertexTexCoordHandle;
-    private int vbTouchLocationXHandle;
-    private int vbTouchLocationYHandle;
-    private float[] vbOrthoProjMatrix;
-    private int viewportPosition_x;
-    private int viewportPosition_y;
-    private int viewportSize_x;
-    private int viewportSize_y;
-
 
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
@@ -160,80 +137,8 @@ public class VuforiaRender extends Cocos2dxRenderer{
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         vuforiaAppSession.onSurfaceCreated();
-        //initRendering();
         super.onSurfaceCreated(gl, config);
 
-    }
-
-    void initRendering()
-    {
-        vbShaderProgramID = SampleUtils.createProgramFromShaderSrc(VideoBackgroundShader.VB_VERTEX_SHADER,
-                VideoBackgroundShader.VB_FRAGMENT_SHADER);
-
-        // Rendering configuration for video background
-        if (vbShaderProgramID > 0)
-        {
-            // Activate shader:
-            GLES20.glUseProgram(vbShaderProgramID);
-
-            // Retrieve handler for texture sampler shader uniform variable:
-            vbTexSampler2DHandle = GLES20.glGetUniformLocation(vbShaderProgramID, "texSampler2D");
-
-            // Retrieve handler for projection matrix shader uniform variable:
-            vbProjectionMatrixHandle = GLES20.glGetUniformLocation(vbShaderProgramID, "projectionMatrix");
-
-            vbVertexHandle = GLES20.glGetAttribLocation(vbShaderProgramID, "vertexPosition");
-            vbTexCoordHandle = GLES20.glGetAttribLocation(vbShaderProgramID, "vertexTexCoord");
-            vbProjectionMatrixHandle = GLES20.glGetUniformLocation(vbShaderProgramID, "projectionMatrix");
-            vbTexSampler2DHandle = GLES20.glGetUniformLocation(vbShaderProgramID, "texSampler2D");
-
-            // Stop using the program
-            GLES20.glUseProgram(0);
-        }
-
-        vbShaderProgramID = SampleUtils.createProgramFromShaderSrc(
-                Shaders.BTA_VERTEX_SHADER, Shaders.BTA_FRAGMENT_SHADER);
-
-        if (vbShaderProgramID > 0)
-        {
-            // Activate shader:
-            GLES20.glUseProgram(vbShaderProgramID);
-
-            // Retrieve handler for vertex position shader attribute variable:
-            vbVertexPositionHandle = GLES20.glGetAttribLocation(
-                    vbShaderProgramID, "vertexPosition");
-
-            // Retrieve handler for texture coordinate shader attribute
-            // variable:
-            vbVertexTexCoordHandle = GLES20.glGetAttribLocation(
-                    vbShaderProgramID, "vertexTexCoord");
-
-            // Retrieve handler for texture sampler shader uniform variable:
-            vbTexSampler2DHandle = GLES20.glGetUniformLocation(
-                    vbShaderProgramID, "texSampler2D");
-
-            // Retrieve handler for projection matrix shader uniform variable:
-            vbProjectionMatrixHandle = GLES20.glGetUniformLocation(
-                    vbShaderProgramID, "projectionMatrix");
-
-            // Retrieve handler for projection matrix shader uniform variable:
-            vbTouchLocationXHandle = GLES20.glGetUniformLocation(
-                    vbShaderProgramID, "touchLocation_x");
-
-            // Retrieve handler for projection matrix shader uniform variable:
-            vbTouchLocationYHandle = GLES20.glGetUniformLocation(
-                    vbShaderProgramID, "touchLocation_y");
-
-            // Set the orthographic matrix
-            vbOrthoProjMatrix = SampleUtils.getOrthoMatrix(-1.0f, 1.0f, -1.0f,
-                    1.0f, -1.0f, 1.0f);
-
-            // Stop using the program
-            GLES20.glUseProgram(0);
-        }
-
-
-        videoBackgroundTex = new GLTextureUnit();
     }
 
     @Override
@@ -241,7 +146,6 @@ public class VuforiaRender extends Cocos2dxRenderer{
         vuforiaAppSession.onSurfaceChanged(width, height);
         super.onSurfaceChanged(gl, width, height);
         onConfigurationChanged(mIsActive);
-        //initRendering();
     }
 
     public void onConfigurationChanged(boolean isARActive)
