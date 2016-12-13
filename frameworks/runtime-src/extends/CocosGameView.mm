@@ -141,13 +141,31 @@ cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
         cocos2d::Mat4::createTranslation(eye, &cocosMatrix);
         cocosMatrix.multiply(mMatrix);
         
-        NSMutableArray* modelMatrix = [NSMutableArray arrayWithCapacity:16];
-        for (int i = 0; i < 16; ++i)
-        {
-            [modelMatrix addObject:[NSNumber numberWithFloat:cocosMatrix.m[i]]];
-        }
-
-        NSDictionary* model = [NSDictionary dictionaryWithObjectsAndKeys:name, @"name", modelMatrix, @"modelViewMatrix", nil];
+        cocos2d::Quaternion quat;
+        cocos2d::Vec3 scale;
+        cocos2d::Vec3 translation;
+        cocosMatrix.decompose(&scale, &quat, &translation);
+        
+        NSDictionary* quaternion = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSNumber numberWithFloat:quat.x], @"x",
+                                    [NSNumber numberWithFloat:quat.y], @"y",
+                                    [NSNumber numberWithFloat:quat.z], @"z",
+                                    [NSNumber numberWithFloat:quat.w], @"w",nil];
+        
+        NSDictionary* scaleXYZ = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSNumber numberWithFloat:scale.x], @"x",
+                                    [NSNumber numberWithFloat:scale.y], @"y",
+                                    [NSNumber numberWithFloat:scale.z], @"z",nil];
+        
+        NSDictionary*  translationXYZ = [NSDictionary dictionaryWithObjectsAndKeys:
+                                         [NSNumber numberWithFloat:translation.x], @"x",
+                                         [NSNumber numberWithFloat:translation.y], @"y",
+                                         [NSNumber numberWithFloat:translation.z], @"z",nil];
+        
+        NSDictionary* model = [NSDictionary dictionaryWithObjectsAndKeys:
+                               name, @"name", quaternion, @"quaternion",
+                               translationXYZ, @"translation", scaleXYZ, @"scale",nil];
+        
         [models addObject:model];
     }
     
