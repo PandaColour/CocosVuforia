@@ -4,6 +4,9 @@
 #include "platform/android/jni/JniHelper.h"
 #include <jni.h>
 #include <android/log.h>
+#include "json/document.h"
+#include "json/writer.h"
+#include "json/stringbuffer.h"
 
 
 #include <GLES2/gl2.h>
@@ -39,44 +42,6 @@ void cocos_android_app_init (JNIEnv* env) {
     AppDelegate *pAppDelegate = new AppDelegate();
 }
 
-
-#ifndef _VUFORIA_CUBE_SHADERS_H_
-#define _VUFORIA_CUBE_SHADERS_H_
-
-
-static const char* cubeMeshVertexShader = " \
-  \
-attribute vec4 vertexPosition; \
-attribute vec2 vertexTexCoord; \
- \
-varying vec2 texCoord; \
- \
-uniform mat4 modelViewProjectionMatrix; \
- \
-void main() \
-{ \
-   gl_Position = modelViewProjectionMatrix * vertexPosition; \
-   texCoord = vertexTexCoord; \
-} \
-";
-
-
-static const char* cubeFragmentShader = " \
- \
-precision mediump float; \
- \
-varying vec2 texCoord; \
- \
-uniform sampler2D texSampler2D; \
- \
-void main() \
-{ \
-   gl_FragColor = texture2D(texSampler2D, texCoord); \
-} \
-";
-
-#endif // _VUFORIA_CUBE_SHADERS_H_
-
 class ARDrawer : public cocos2d::Drawer
 {
 public:
@@ -84,268 +49,93 @@ public:
     virtual void customProject();
     virtual cocos2d::Mat4 getCustomProjectMat4();
     virtual cocos2d::Vec3 getCustomPoint(POINT_TYPE type);
-    void drawVideoBackground();
+private:
     cocos2d::Mat4 getCustomCameraMat4();
-    void updateRenderingPrimitives();
-    float getSceneScaleFactor();
-    void drawbg();
+    void dealMatix(Vuforia::State state);
 private:
     float _fieldOfView;
     float _aspectRatio;
-    cocos2d::CustomCommand _customCommand;
-    void initRendering();
-    unsigned int createProgramFromBuffer(const char* vertexShaderBuffer,
-                                     const char* fragmentShaderBuffer);
-    void scalePoseMatrix(float x, float y, float z, float* matrix);
-    
-private:
-    unsigned int vbShaderProgramID    = 0;
-    GLint vbVertexHandle              = 0;
-    GLint vbTextureCoordHandle        = 0;
-    GLint vbMvpMatrixHandle           = 0;
-    GLint vbTexSampler2DHandle        = 0;
-    bool  bInitRender = false;
-
-    Vuforia::RenderingPrimitives* renderingPrimitives = NULL;
-    pthread_mutex_t renderingPrimitivesMutex;
 };
 
 
-void ARDrawer::scalePoseMatrix(float x, float y, float z, float* matrix)
-{
-    // Sanity check
-    if (!matrix)
-        return;
-
-    // matrix * scale_matrix
-    matrix[0]  *= x;
-    matrix[1]  *= x;
-    matrix[2]  *= x;
-    matrix[3]  *= x;
-                     
-    matrix[4]  *= y;
-    matrix[5]  *= y;
-    matrix[6]  *= y;
-    matrix[7]  *= y;
-                     
-    matrix[8]  *= z;
-    matrix[9]  *= z;
-    matrix[10] *= z;
-    matrix[11] *= z;
-}
-
-
-void ARDrawer::updateRenderingPrimitives()
-{
-    //initRendering();
-    pthread_mutex_lock(&renderingPrimitivesMutex);
-    if (renderingPrimitives != NULL)
-    {
-        delete renderingPrimitives;
-        renderingPrimitives = NULL;
-    }
-    renderingPrimitives = new Vuforia::RenderingPrimitives(Vuforia::Device::getInstance().getRenderingPrimitives());
-    pthread_mutex_unlock(&renderingPrimitivesMutex);
-}
-
-void ARDrawer::initRendering()
-{
-    if (!bInitRender){
-        glClearColor(0.0f, 0.0f, 0.0f, Vuforia::requiresAlpha() ? 0.0f : 1.0f);  
-        vbShaderProgramID = createProgramFromBuffer(cubeMeshVertexShader, cubeFragmentShader);
-        vbVertexHandle        = glGetAttribLocation(vbShaderProgramID, "vertexPosition");
-        vbTextureCoordHandle  = glGetAttribLocation(vbShaderProgramID, "vertexTexCoord");
-        vbMvpMatrixHandle     = glGetUniformLocation(vbShaderProgramID, "modelViewProjectionMatrix");
-        vbTexSampler2DHandle  = glGetUniformLocation(vbShaderProgramID, "texSampler2D");
-        bInitRender = true;
-    }
-}
-
-unsigned int
-ARDrawer::createProgramFromBuffer(const char* vertexShaderBuffer,
-                                     const char* fragmentShaderBuffer)
-{
-#ifdef USE_OPENGL_ES_2_0    
-
-    GLuint vertexShader = initShader(GL_VERTEX_SHADER, vertexShaderBuffer);
-    if (!vertexShader)
-        return 0;    
-
-    GLuint fragmentShader = initShader(GL_FRAGMENT_SHADER,
-                                        fragmentShaderBuffer);
-    if (!fragmentShader)
-        return 0;
-
-    GLuint program = glCreateProgram();
-    if (program)
-    {
-        glAttachShader(program, vertexShader);
-        checkGlError("glAttachShader");
-        
-        glAttachShader(program, fragmentShader);
-        checkGlError("glAttachShader");
-        
-        glLinkProgram(program);
-        GLint linkStatus = GL_FALSE;
-        glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
-        
-        if (linkStatus != GL_TRUE)
-        {
-            GLint bufLength = 0;
-            glGetProgramiv(program, GL_INFO_LOG_LENGTH, &bufLength);
-            if (bufLength)
-            {
-                char* buf = (char*) malloc(bufLength);
-                if (buf)
-                {
-                    glGetProgramInfoLog(program, bufLength, NULL, buf);
-                    LOG("Could not link program: %s", buf);
-                    free(buf);
-                }
-            }
-            glDeleteProgram(program);
-            program = 0;
-        }
-    }
-    return program;
-#else
-    return 0;
-#endif
-}
-
-float ARDrawer::getSceneScaleFactor()
-{
-    static const float VIRTUAL_FOV_Y_DEGS = 85.0f;
-    Vuforia::Vec2F fovVector = Vuforia::CameraDevice::getInstance().getCameraCalibration().getFieldOfViewRads();
-    float cameraFovYRads = fovVector.data[1];
-    float virtualFovYRads = VIRTUAL_FOV_Y_DEGS * M_PI / 180;
-    return tan(cameraFovYRads / 2) / tan(virtualFovYRads / 2);
-}
-
-void ARDrawer::drawVideoBackground() {
-    LOGD("drawVideoBackground");
-    
-
-    //Vuforia::State state = Vuforia::Renderer::getInstance().begin();
-    //Vuforia::Renderer::getInstance().end();
-
-    pthread_mutex_lock(&renderingPrimitivesMutex);
-
-    Vuforia::State state = Vuforia::Renderer::getInstance().begin();
-    //Vuforia::Renderer::getInstance().end();
-
-    int vbVideoTextureUnit = 0;
-    Vuforia::GLTextureUnit tex;
-    tex.mTextureUnit = vbVideoTextureUnit;
-
-    if (! Vuforia::Renderer::getInstance().updateVideoBackgroundTexture(&tex))
-    {
-        LOGD("Unable to bind video background texture!!");
-        Vuforia::Renderer::getInstance().end();
-        pthread_mutex_unlock(&renderingPrimitivesMutex);
-        return;
-    }
-
-    // pthread_mutex_unlock(&renderingPrimitivesMutex);
-    //     return;
-
-    LOGD("drawVideoBackground bind video background texture");
-
-    Vuforia::Matrix44F vbProjectionMatrix = Vuforia::Tool::convert2GLMatrix(
-                                                                            renderingPrimitives->getVideoBackgroundProjectionMatrix(Vuforia::VIEW_SINGULAR, Vuforia::COORDINATE_SYSTEM_CAMERA));
-
-    if (Vuforia::Device::getInstance().isViewerActive())
-    {
-        float sceneScaleFactor = getSceneScaleFactor();
-        scalePoseMatrix(sceneScaleFactor, sceneScaleFactor, 1.0f, vbProjectionMatrix.data);
-    }
-
-    
-
-    GLboolean depthTest = false;
-    GLboolean cullTest = false;
-    GLboolean scissorsTest = false;
-
-    glGetBooleanv(GL_DEPTH_TEST, &depthTest);
-    glGetBooleanv(GL_CULL_FACE, &cullTest);
-    glGetBooleanv(GL_SCISSOR_TEST, &scissorsTest);
-
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_SCISSOR_TEST);
-    //Vuforia::Renderer::getInstance().drawVideoBackground();
-
-    const Vuforia::Mesh& vbMesh = renderingPrimitives->getVideoBackgroundMesh(Vuforia::VIEW_SINGULAR);
-    // Load the shader and upload the vertex/texcoord/index data
-    glUseProgram(vbShaderProgramID);
-    glVertexAttribPointer(vbVertexHandle, 3, GL_FLOAT, false, 0, vbMesh.getPositionCoordinates());
-    glVertexAttribPointer(vbTextureCoordHandle, 2, GL_FLOAT, false, 0, vbMesh.getUVCoordinates());
-
-    glUniform1i(vbTexSampler2DHandle, vbVideoTextureUnit);
-
-    // Render the video background with the custom shader
-    // First, we enable the vertex arrays
-    glEnableVertexAttribArray(vbVertexHandle);
-    glEnableVertexAttribArray(vbTextureCoordHandle);
-
-    // Pass the projection matrix to OpenGL
-    glUniformMatrix4fv(vbMvpMatrixHandle, 1, GL_FALSE, vbProjectionMatrix.data);
-
-    // Then, we issue the render call
-    glDrawElements(GL_TRIANGLES, vbMesh.getNumTriangles() * 3, GL_UNSIGNED_SHORT,
-                   vbMesh.getTriangles());
-
-    // Finally, we disable the vertex arrays
-    glDisableVertexAttribArray(vbVertexHandle);
-    glDisableVertexAttribArray(vbTextureCoordHandle);
-
-    LOGD("drawVideoBackground  pthread_mutex_unlock");
-
-    if(depthTest)
-        glEnable(GL_DEPTH_TEST);
-
-    if(cullTest)
-        glEnable(GL_CULL_FACE);
-
-    if(scissorsTest)
-        glEnable(GL_SCISSOR_TEST);
-        
-
-    Vuforia::Renderer::getInstance().end();
-    LOGD("drawVideoBackground  pthread_mutex_unlock");
-    pthread_mutex_unlock(&renderingPrimitivesMutex);
-
-    LOGD("drawVideoBackground out");
-}
-
 void ARDrawer::draw()
 {
-    // LOGD("draw in");
-    // pthread_mutex_lock(&renderingPrimitivesMutex);
-    // Vuforia::State state = Vuforia::Renderer::getInstance().begin();
-    // Vuforia::Renderer::getInstance().drawVideoBackground();
-    // Vuforia::Renderer::getInstance().end();
-    // pthread_mutex_unlock(&renderingPrimitivesMutex);
-    // LOGD("draw out");
-
-    //drawVideoBackground();
-    _customCommand.init(-100);
-    _customCommand.func = CC_CALLBACK_0(ARDrawer::drawbg, this);
-    cocos2d::Director::getInstance()->getRenderer()->addCommand(&_customCommand);
-}
-
-void ARDrawer::drawbg()
-{
-    LOGD("draw in");
-    //pthread_mutex_lock(&renderingPrimitivesMutex);
     Vuforia::State state = Vuforia::Renderer::getInstance().begin();
     Vuforia::Renderer::getInstance().drawVideoBackground();
+    dealMatix(state);
     Vuforia::Renderer::getInstance().end();
-    //pthread_mutex_unlock(&renderingPrimitivesMutex);
-    LOGD("draw out");
 }
 
+void ARDrawer::dealMatix(Vuforia::State state)
+{
+    rapidjson::Document writedoc;
+    writedoc.SetObject();
+    rapidjson::Document::AllocatorType& allocator = writedoc.GetAllocator();
+    
+    rapidjson::Value models(rapidjson::kArrayType);
+    for (int i = 0; i < state.getNumTrackableResults(); ++i) {
+        const Vuforia::TrackableResult* result = state.getTrackableResult(i);
+        const Vuforia::Trackable& trackable = result->getTrackable();
+        Vuforia::Matrix44F modelViewMatrix = Vuforia::Tool::convertPose2GLMatrix(result->getPose());
+        
+        cocos2d::Mat4 mMatrix;
+        for (int i = 0; i < 16; ++i) {
+            mMatrix.m[i] = modelViewMatrix.data[i];
+        };
+        float scala = 3.0;
+        mMatrix.m[12] += (mMatrix.m[8]  * scala);
+        mMatrix.m[13] += (mMatrix.m[9]  * scala);
+        mMatrix.m[14] += (mMatrix.m[10] * scala);
+        mMatrix.m[15] += (mMatrix.m[11] * scala);
+        mMatrix.scale(scala, scala, scala);
+        
+        cocos2d::Vec3 eye = drawer.getCustomPoint(cocos2d::Drawer::POINT_TYPE::POINT_EYE);
+        cocos2d::Mat4 cocosMatrix;
+        cocos2d::Mat4::createTranslation(eye, &cocosMatrix);
+        cocosMatrix.multiply(mMatrix);
+        
+        cocos2d::Quaternion quat;
+        cocos2d::Vec3 scale;
+        cocos2d::Vec3 translation;
+        cocosMatrix.decompose(&scale, &quat, &translation);
+        
+        rapidjson::Value quaternion(rapidjson::kObjectType);
+        quaternion.AddMember("x", quat.x, allocator);
+        quaternion.AddMember("y", quat.y, allocator);
+        quaternion.AddMember("z", quat.z, allocator);
+        quaternion.AddMember("w", quat.w, allocator);
+        
+        rapidjson::Value scaleXYZ(rapidjson::kObjectType);
+        scaleXYZ.AddMember("x", scale.x, allocator);
+        scaleXYZ.AddMember("y", scale.y, allocator);
+        scaleXYZ.AddMember("z", scale.z, allocator);
 
+        rapidjson::Value translationXYZ(rapidjson::kObjectType);
+        translationXYZ.AddMember("x", translation.x, allocator);
+        translationXYZ.AddMember("y", translation.y, allocator);
+        translationXYZ.AddMember("z", translation.z, allocator);
+        
+        rapidjson::Value model(rapidjson::kObjectType);
+        rapidjson::Value name(rapidjson::kStringType);
+        name.SetString(trackable.getName(), rapidjson::SizeType(strlen(trackable.getName())));
+        model.AddMember("name", name, allocator);
+        model.AddMember("quaternion", quaternion, allocator);
+        model.AddMember("scale", scaleXYZ, allocator);
+        model.AddMember("translation", translationXYZ, allocator);
+        
+        models.PushBack(model, allocator);
+    }
+    writedoc.AddMember("module", "AR", allocator);
+    writedoc.AddMember("models", models, allocator);
+    
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    writedoc.Accept(writer);
+
+    std::string json = buffer.GetString();
+    std::string jsMethod = std::string("globle.callJsMedthod('") + json + "')";
+    ScriptingCore::getInstance()->evalString(jsMethod.c_str(), nullptr);
+}
 
 void ARDrawer::customProject()
 {
