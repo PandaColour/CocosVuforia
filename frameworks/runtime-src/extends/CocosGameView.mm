@@ -19,7 +19,9 @@
 #import "JsMethod.h"
 #import "Vuforia/VuforiaController.h"
 #import "Vuforia/VuforiaApplicationSession.h"
-
+#include "json/document.h"
+#include "json/writer.h"
+#include "json/stringbuffer.h"
 
 
 void ARDrawer::draw()
@@ -118,12 +120,15 @@ cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
 
 -(void) dealMatix:(Vuforia::State)state
 {
-    NSMutableArray *models = [NSMutableArray array];
+    rapidjson::Document writedoc;
+    writedoc.SetObject();
+    rapidjson::Document::AllocatorType& allocator = writedoc.GetAllocator();
+    
+    rapidjson::Value models(rapidjson::kArrayType);
     for (int i = 0; i < state.getNumTrackableResults(); ++i) {
         const Vuforia::TrackableResult* result = state.getTrackableResult(i);
         const Vuforia::Trackable& trackable = result->getTrackable();
         Vuforia::Matrix44F modelViewMatrix = Vuforia::Tool::convertPose2GLMatrix(result->getPose());
-        NSString* name = [[NSString alloc]initWithUTF8String:trackable.getName()];
         
         cocos2d::Mat4 mMatrix;
         for (int i = 0; i < 16; ++i) {
@@ -146,36 +151,41 @@ cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
         cocos2d::Vec3 translation;
         cocosMatrix.decompose(&scale, &quat, &translation);
         
-        NSDictionary* quaternion = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSNumber numberWithFloat:quat.x], @"x",
-                                    [NSNumber numberWithFloat:quat.y], @"y",
-                                    [NSNumber numberWithFloat:quat.z], @"z",
-                                    [NSNumber numberWithFloat:quat.w], @"w",nil];
+        rapidjson::Value quaternion(rapidjson::kObjectType);
+        quaternion.AddMember("x", quat.x, allocator);
+        quaternion.AddMember("y", quat.y, allocator);
+        quaternion.AddMember("z", quat.z, allocator);
+        quaternion.AddMember("w", quat.w, allocator);
         
-        NSDictionary* scaleXYZ = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [NSNumber numberWithFloat:scale.x], @"x",
-                                    [NSNumber numberWithFloat:scale.y], @"y",
-                                    [NSNumber numberWithFloat:scale.z], @"z",nil];
+        rapidjson::Value scaleXYZ(rapidjson::kObjectType);
+        scaleXYZ.AddMember("x", scale.x, allocator);
+        scaleXYZ.AddMember("y", scale.y, allocator);
+        scaleXYZ.AddMember("z", scale.z, allocator);
         
-        NSDictionary*  translationXYZ = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         [NSNumber numberWithFloat:translation.x], @"x",
-                                         [NSNumber numberWithFloat:translation.y], @"y",
-                                         [NSNumber numberWithFloat:translation.z], @"z",nil];
+        rapidjson::Value translationXYZ(rapidjson::kObjectType);
+        translationXYZ.AddMember("x", translation.x, allocator);
+        translationXYZ.AddMember("y", translation.y, allocator);
+        translationXYZ.AddMember("z", translation.z, allocator);
         
-        NSDictionary* model = [NSDictionary dictionaryWithObjectsAndKeys:
-                               name, @"name", quaternion, @"quaternion",
-                               translationXYZ, @"translation", scaleXYZ, @"scale",nil];
+        rapidjson::Value model(rapidjson::kObjectType);
+        rapidjson::Value name(rapidjson::kStringType);
+        name.SetString(trackable.getName(), rapidjson::SizeType(strlen(trackable.getName())));
+        model.AddMember("name", name, allocator);
+        model.AddMember("quaternion", quaternion, allocator);
+        model.AddMember("scale", scaleXYZ, allocator);
+        model.AddMember("translation", translationXYZ, allocator);
         
-        [models addObject:model];
+        models.PushBack(model, allocator);
     }
+    writedoc.AddMember("module", "AR", allocator);
+    writedoc.AddMember("models", models, allocator);
     
-    NSDictionary* methodDeal = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       @"AR", @"module",
-                                       models, @"models", nil];
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:methodDeal options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    [jsonString autorelease];
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    writedoc.Accept(writer);
+    
+    std::string json = buffer.GetString();
+    NSString *jsonString = [[NSString alloc] initWithCString:json.c_str() encoding:[NSString defaultCStringEncoding]];
     [JsMethodInterface callJsMethod:[jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
 }
 
