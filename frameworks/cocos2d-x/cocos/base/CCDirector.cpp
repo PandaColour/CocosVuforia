@@ -107,7 +107,7 @@ Director* Director::getInstance()
 
 Director::Director()
 : _isStatusLabelUpdated(true),
-  _drawer(nullptr)
+	_drawer(nullptr)
 {
 }
 
@@ -277,12 +277,12 @@ void Director::drawScene()
 
     _renderer->clear();
     experimental::FrameBuffer::clearAllFBOs();
-    if (_drawer)
+    
+    if (_drawer != nullptr)
     {
         _drawer->draw();
     }
     
-    _renderer->render();
     /* to avoid flickr, nextScene MUST be here: after tick and before draw.
      * FIXME: Which bug is this one. It seems that it can't be reproduced with v0.9
      */
@@ -317,6 +317,7 @@ void Director::drawScene()
     {
         showStats();
     }
+    _renderer->render();
 
     _eventDispatcher->dispatchEvent(_eventAfterDraw);
 
@@ -632,10 +633,13 @@ void Director::setProjection(Projection projection)
         }
 
         case Projection::CUSTOM:
-            // Projection Delegate is no longer needed
-            // since the event "PROJECTION CHANGED" is emitted
+        {
+            if (_drawer)
+            {
+                _drawer->customProject();
+            }
             break;
-
+        }
         default:
             CCLOG("cocos2d: Director: unrecognized projection");
             break;
