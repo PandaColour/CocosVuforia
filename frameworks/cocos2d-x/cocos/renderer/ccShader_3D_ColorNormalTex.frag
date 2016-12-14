@@ -146,10 +146,14 @@ void main(void)
 \n#endif\n
 
 \n#if ((MAX_DIRECTIONAL_LIGHT_NUM > 0) || (MAX_POINT_LIGHT_NUM > 0) || (MAX_SPOT_LIGHT_NUM > 0))\n
-    gl_FragColor = texture2D(CC_Texture0, TextureCoordOut) * u_color * combinedColor;
+    vec4 result = texture2D(CC_Texture0, TextureCoordOut) * u_color * combinedColor;
 \n#else\n
-    gl_FragColor = texture2D(CC_Texture0, TextureCoordOut) * u_color;
+    vec4 result = texture2D(CC_Texture0, TextureCoordOut) * u_color;
 \n#endif\n
+
+    if (result.a < 0.80)
+        discard;
+    gl_FragColor = result;
 
 }
 );

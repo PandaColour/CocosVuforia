@@ -10,6 +10,9 @@ uniform vec4 u_color;
 
 void main(void)
 {
-    gl_FragColor = texture2D(CC_Texture0, TextureCoordOut) * u_color;
+    vec4 result = texture2D(CC_Texture0, TextureCoordOut) * u_color;
+    if (result.a < 0.80)
+        discard;
+    gl_FragColor = result;
 }
 );
