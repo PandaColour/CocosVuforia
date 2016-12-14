@@ -15,11 +15,13 @@ class ARDrawer : public cocos2d::Drawer
 {
 public:
     virtual void draw();
+    void drawAR();
     virtual void customProject();
     virtual cocos2d::Mat4 getCustomProjectMat4();
     virtual cocos2d::Vec3 getCustomPoint(POINT_TYPE type);
     cocos2d::Mat4 getCustomCameraMat4();
 private:
+    cocos2d::CustomCommand _customCommand;
     float _fieldOfView;
     float _aspectRatio;
 };

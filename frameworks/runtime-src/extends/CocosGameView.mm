@@ -26,8 +26,14 @@
 
 void ARDrawer::draw()
 {
+    _customCommand.init(-100);
+    _customCommand.func = CC_CALLBACK_0(ARDrawer::drawAR, this);
+    cocos2d::Director::getInstance()->getRenderer()->addCommand(&_customCommand);
+}
+
+void ARDrawer::drawAR()
+{
     Vuforia::State state = Vuforia::Renderer::getInstance().begin();
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Vuforia::Renderer::getInstance().drawVideoBackground();
     Vuforia::Renderer::getInstance().end();
 }

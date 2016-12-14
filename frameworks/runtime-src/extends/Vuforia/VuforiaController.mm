@@ -109,7 +109,7 @@ namespace {
 
 // load the data associated to the trackers
 - (bool) doLoadTrackersData {
-    dataSetCurrent = [self loadObjectTrackerDataSet:@"res/StonesAndChips.xml"];
+    dataSetCurrent = [self loadObjectTrackerDataSet:@"res/OneWorldTech.xml"];
     return dataSetCurrent != nil;
 }
 
@@ -201,7 +201,7 @@ namespace {
 }
 
 - (void) onVuforiaUpdate: (Vuforia::State *) state {
-    Vuforia::setHint(Vuforia::HINT_MAX_SIMULTANEOUS_IMAGE_TARGETS, 3);
+    Vuforia::setHint(Vuforia::HINT_MAX_SIMULTANEOUS_IMAGE_TARGETS, 10);
 }
 
 
