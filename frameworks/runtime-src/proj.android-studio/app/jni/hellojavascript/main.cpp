@@ -50,6 +50,8 @@ public:
     virtual cocos2d::Mat4 getCustomProjectMat4();
     virtual cocos2d::Vec3 getCustomPoint(POINT_TYPE type);
     cocos2d::Mat4 getCustomCameraMat4();
+    cocos2d::CustomCommand _customCommand;
+    void drawAR();
 private:
     void dealMatix(Vuforia::State state);
 private:
@@ -60,8 +62,15 @@ private:
 
 void ARDrawer::draw()
 {
+    _customCommand.init(-100);
+    _customCommand.func = CC_CALLBACK_0(ARDrawer::drawAR, this);
+    cocos2d::Director::getInstance()->getRenderer()->addCommand(&_customCommand);
+}
+
+void ARDrawer::drawAR()
+{
     Vuforia::State state = Vuforia::Renderer::getInstance().begin();
-    //Vuforia::Renderer::getInstance().drawVideoBackground();
+    Vuforia::Renderer::getInstance().drawVideoBackground();
     // may be the current thread is not the render thread
     dealMatix(state);
     Vuforia::Renderer::getInstance().end();
