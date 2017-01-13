@@ -17,3 +17,6 @@ android版本的 Vuforia::Renderer::getInstance().drawVideoBackground(); 把摄�
 
 #2017/1/11
 可以肯定是android drawVideoBackground绘制的时候破坏了opengl的某些内部context，并不是绘制层次的问题
+
+#2017/1/13
+解决安卓摄像头绘制，虽然并不是官方推荐的方法
