@@ -30,7 +30,12 @@
 #include <Vuforia/GLRenderer.h>
 #include <Vuforia/StateUpdater.h>
 #include <Vuforia/ViewList.h>
+#include <Vuforia/View.h>
+#include <Vuforia/Image.h>
+#include <Vuforia/Frame.h>
+#include <Vuforia/RenderingPrimitives.h>
 
+#include <thread>
 
 #define  LOG_TAG    "main"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
@@ -50,11 +55,10 @@ public:
     virtual cocos2d::Mat4 getCustomProjectMat4();
     virtual cocos2d::Vec3 getCustomPoint(POINT_TYPE type);
     cocos2d::Mat4 getCustomCameraMat4();
-    cocos2d::CustomCommand _customCommand;
-    void drawAR();
 private:
     void dealMatix(Vuforia::State state);
 private:
+    pthread_mutex_t renderingPrimitivesMutex;
     float _fieldOfView;
     float _aspectRatio;
 };
@@ -62,16 +66,46 @@ private:
 
 void ARDrawer::draw()
 {
-    _customCommand.init(-100);
-    _customCommand.func = CC_CALLBACK_0(ARDrawer::drawAR, this);
-    cocos2d::Director::getInstance()->getRenderer()->addCommand(&_customCommand);
-}
-
-void ARDrawer::drawAR()
-{
     Vuforia::State state = Vuforia::Renderer::getInstance().begin();
-    Vuforia::Renderer::getInstance().drawVideoBackground();
-    // may be the current thread is not the render thread
+    cocos2d::Texture2D* texture2d = new cocos2d::Texture2D();
+    texture2d->autorelease();
+
+    Vuforia::setFrameFormat(Vuforia::RGB565, true);
+    Vuforia::Image *imageRGB565 = NULL;
+    Vuforia::Frame frame = state.getFrame();
+     
+    for (int i = 0; i < frame.getNumImages(); ++i) {
+        const Vuforia::Image *image = frame.getImage(i);
+        if (image->getFormat() == Vuforia::RGB565) {
+            imageRGB565 = (Vuforia::Image*)image;
+            break;
+        }
+    }
+
+    if (imageRGB565) {
+        texture2d->initWithData(imageRGB565->getPixels(),
+        imageRGB565->getBufferWidth() * imageRGB565->getBufferHeight() * 2,
+        Texture2D::PixelFormat::RGB565,
+        imageRGB565->getBufferWidth(),
+        imageRGB565->getBufferHeight(),
+        cocos2d::Size(imageRGB565->getBufferWidth(), imageRGB565->getBufferHeight()));
+
+        cocos2d::Sprite* sprite = (cocos2d::Sprite*)cocos2d::Director::getInstance()->getRunningScene()->getChildByName("arRoot##");
+
+        if (sprite == nullptr) {
+            sprite = cocos2d::Sprite::createWithTexture(texture2d);
+            cocos2d::Size size = cocos2d::Director::getInstance()->getWinSize();
+            sprite->setPosition(cocos2d::Vec2(size.width/2, size.height/2));
+            sprite->setScale(1, -1);
+            sprite->setName("arRoot##");
+            sprite->setGlobalZOrder(-1);
+            cocos2d::Director::getInstance()->getRunningScene()->addChild(sprite);
+        }
+
+        if (sprite) {
+            sprite->setTexture(texture2d);  
+        }
+    }
     dealMatix(state);
     Vuforia::Renderer::getInstance().end();
 }
@@ -183,8 +217,6 @@ cocos2d::Vec3 ARDrawer::getCustomPoint(POINT_TYPE type)
     cocos2d::Size size = cocos2d::Director::getInstance()->getWinSize();
     
     float zeye = (size.height * 0.5f) / tan(_fieldOfView*0.5f*3.1415926/180.0);
-    if (_fieldOfView == 180) 
-        zeye = -1429.0f;
     cocos2d::Vec3 point;
     switch (type) {
         case cocos2d::Drawer::POINT_TYPE::POINT_EYE:
