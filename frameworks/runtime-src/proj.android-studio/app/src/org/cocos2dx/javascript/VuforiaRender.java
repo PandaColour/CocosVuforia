@@ -62,12 +62,7 @@ public class VuforiaRender extends Cocos2dxRenderer{
     private boolean mIsPortrait = false;
 
     Timer timer = new Timer();
-    TimerTask task = new TimerTask() {
-        @Override
-        public void run() {
-            onConfigurationChanged(mIsActive);
-        }
-    };
+    TimerTask task = null;
 
     public VuforiaRender(VuforiaApplicationSession session) {
         vuforiaAppSession = session;
@@ -128,7 +123,18 @@ public class VuforiaRender extends Cocos2dxRenderer{
                 + mScreenHeight + "), mSize (" + xSize + " , " + ySize + ")");
 
         if (xSize == 0 || ySize == 0 ) {
-            timer.schedule(task, 1000);
+            if (this.task != null) {
+                this.task.cancel();
+            }
+
+            this.task = new TimerTask() {
+                @Override
+                public void run() {
+                    onConfigurationChanged(mIsActive);
+                }
+            };
+
+            timer.schedule(task, 10);
         } else {
             Renderer.getInstance().setVideoBackgroundConfig(config);
         }
