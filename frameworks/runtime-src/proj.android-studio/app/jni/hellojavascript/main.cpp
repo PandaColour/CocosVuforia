@@ -96,14 +96,15 @@ void ARDrawer::draw()
             sprite = cocos2d::Sprite::createWithTexture(texture2d);
             cocos2d::Size size = cocos2d::Director::getInstance()->getWinSize();
             sprite->setPosition(cocos2d::Vec2(size.width/2, size.height/2));
-            sprite->setScale(1, -1);
+            cocos2d::Size contentsize = sprite->getContentSize();
+            sprite->setScale(contentsize.width/size.width, -contentsize.height/size.height);
             sprite->setName("arRoot##");
             sprite->setGlobalZOrder(-1);
             cocos2d::Director::getInstance()->getRunningScene()->addChild(sprite);
         }
 
         if (sprite) {
-            sprite->setTexture(texture2d);  
+            sprite->setTexture(texture2d); 
         }
     }
     dealMatix(state);
@@ -254,6 +255,10 @@ extern "C"
 	{
 		cocos2d::Director::getInstance()->setDrawer(nullptr);
         cocos2d::Director::getInstance()->setProjection(cocos2d::Director::Projection::_3D);
+        cocos2d::Sprite* sprite = (cocos2d::Sprite*)cocos2d::Director::getInstance()->getRunningScene()->getChildByName("arRoot##");
+        if (sprite != nullptr) {
+            sprite -> removeFromParent();
+        }
 	}
 
 
